@@ -1,0 +1,21 @@
+title = "10.sudoers.toml"
+description = """
+edits /etc/sudoers so that no password is needed. action is completed safely using 
+visudo -c -f <new_file> before being copied over /etc/sudoers.
+"""
+
+[os_id.ubuntu]
+ver_id = [ "19.10", ]
+
+# user_input_1 - needs sudo password before starting
+# file_1 - copy curren't sudoers file to /tmp/sudoers.tmp
+# file_1 - edit and replace - 
+# file_1 - %sudo   ALL=(ALL:ALL) ALL
+# file_1 - with - 
+# file_1 - %sudo   ALL=(ALL) NOPASSWD:ALL
+# command_1 - run visudo -c -f /tmp/sudoers.tmp
+# command_1 - if bad, fail step with error code
+# file_2 - else, replace /etc/sudoers with /tmp/sudoers.tmp
+# command_2 - test sudo for success with sudo -l
+# command_2 - check output of command for - 
+# command_2 - (ALL) NOPASSWD: ALL
