@@ -68,7 +68,7 @@ This function should only modify configuration layer settings."
      finance
      (shell :variables
             ;;        shell-default-height 30
-            ;;        shell-default-position 'bottom
+            shell-default-position 'right
             shell-default-shell 'vterm)
      spell-checking
      syntax-checking
@@ -238,8 +238,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-one
-                         doom-vibrant)
+   dotspacemacs-themes '(doom-vibrant
+                         doom-one)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -531,7 +531,6 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 ;;  (setq default-frame-alist '((undecorated . t)))
-  ;; (setq neo-theme 'icons)
   (setq adaptive-wrap-prefix-mode nil)
   (setq lsp-ui-doc-enable nil)
   (setq doom-one-brighter-comments t)
@@ -539,6 +538,9 @@ before packages are loaded."
   (setq doom-one-comment-bg nil)
   (setq doom-vibrant-comment-bg nil)
   (setq web-mode-enable-auto-pairing nil)
+
+  (evil-ex-define-cmd "q" 'kill-this-buffer)
+  (evil-ex-define-cmd "quit" 'evil-quit)
 
   (spacemacs/toggle-golden-ratio-on)
   (scroll-bar-mode -1)
