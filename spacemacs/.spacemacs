@@ -56,7 +56,8 @@ This function should only modify configuration layer settings."
                treemacs-use-all-the-icons-theme t
                treemacs-use-git-mode 'deferred
                treemacs-use-filewatch-mode t
-               treemacs-use-scope-type 'Frames)
+               treemacs-use-scope-type 'Frames
+               treemacs-lock-width t)
      ;; better-defaults
      (terraform :variables terraform-auto-format-on-save t)
      emacs-lisp
@@ -538,10 +539,13 @@ before packages are loaded."
   (setq doom-one-comment-bg nil)
   (setq doom-vibrant-comment-bg nil)
   (setq web-mode-enable-auto-pairing nil)
+
+  (spacemacs/toggle-golden-ratio-on)
   (scroll-bar-mode -1)
 
   (require 'lsp-mode)
 
+  ;; Setup terraform-ls
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("/usr/local/bin/terraform-ls" "serve"))
                     :major-modes '(terraform-mode)
