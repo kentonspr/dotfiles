@@ -68,8 +68,8 @@ This function should only modify configuration layer settings."
      lsp
      finance
      (shell :variables
-            ;;        shell-default-height 30
-            shell-default-position 'right
+            ;; shell-default-width 80
+            shell-default-position 'bottom
             shell-default-shell 'vterm)
      spell-checking
      syntax-checking
@@ -259,7 +259,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("FiraCode Nerd Font"
+   dotspacemacs-default-font '("JetBrains Mono"
                                :size 13.0
                                :weight normal
                                :width normal)
@@ -541,11 +541,14 @@ before packages are loaded."
   (setq doom-one-comment-bg nil)
   (setq doom-vibrant-comment-bg nil)
   (setq web-mode-enable-auto-pairing nil)
+  (setq vterm-max-scrollback 100000)
 
   (evil-ex-define-cmd "q" 'kill-this-buffer)
   (evil-ex-define-cmd "quit" 'evil-quit)
 
   (spacemacs/toggle-golden-ratio-on)
+  (setq golden-ratio-exclude-modes '("vterm-mode"))
+
   (scroll-bar-mode -1)
 
   (require 'lsp-mode)
