@@ -58,6 +58,7 @@ This function should only modify configuration layer settings."
                treemacs-use-git-mode 'deferred
                treemacs-use-filewatch-mode t
                treemacs-use-scope-type 'Frames
+               treemacs-wrap-around nil
                treemacs-lock-width t)
      ;; better-defaults
      (terraform :variables terraform-auto-format-on-save t)
@@ -542,6 +543,7 @@ before packages are loaded."
   (setq doom-vibrant-comment-bg nil)
   (setq web-mode-enable-auto-pairing nil)
   (setq vterm-max-scrollback 100000)
+  (setq terminal-here-mac-terminal-command 'alacritty)
 
   (evil-ex-define-cmd "q" 'kill-this-buffer)
   (evil-ex-define-cmd "quit" 'evil-quit)
