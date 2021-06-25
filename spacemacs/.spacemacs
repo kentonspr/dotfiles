@@ -415,7 +415,11 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers `relative
+   dotspacemacs-line-numbers `(:relative t
+                               :enabled-for-modes prog-mode
+                                                  text-mode
+                                                  treemacs-mode
+                               :size-limit-kb 1000)
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
@@ -541,6 +545,16 @@ before packages are loaded."
   (setq doom-vibrant-brighter-comments t)
   (setq doom-one-comment-bg nil)
   (setq doom-vibrant-comment-bg nil)
+  (setq dotspacemacs-default-font '("JetBrains Mono"
+                                    :size 13.0
+                                    :weight normal
+                                    :width normal))
+  (setq dotspacemacs-line-numbers `(:relative t
+                                    :enabled-for-modes prog-mode
+                                                       text-mode
+                                                       treemacs-mode
+                                    :size-limit-kb 1000))
+
   (setq web-mode-enable-auto-pairing nil)
   (setq vterm-max-scrollback 100000)
   (setq terminal-here-mac-terminal-command 'alacritty)
