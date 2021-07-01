@@ -2,6 +2,14 @@
 
   Attempting to write a literate config file that gets consumed by babel.
 
+* Personal Info
+
+  #+begin_src emacs-lisp
+    (setq user-full-name: "Kenton Appanaitis"
+          user-mail-address: "kappanaitis@gmail.com")
+  #+end_src
+
 * Key Bindings
 
 * UI Tweaks
+
