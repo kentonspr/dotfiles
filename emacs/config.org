@@ -75,7 +75,6 @@
    [[https://github.com/seagle0128/doom-modeline][Github]]
    
     #+begin_src emacs-lisp
-      
       (use-package doom-modeline
         :init (doom-modeline-mode 1)
         :custom ((doom-modeline-height 15)))

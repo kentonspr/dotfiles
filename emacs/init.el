@@ -38,5 +38,7 @@
 (require 'diminish)  ;; if you use :diminish
 (require 'bind-key)
 
+(setq use-package-always-ensure t)
+
 ;;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
