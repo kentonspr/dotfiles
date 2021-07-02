@@ -26,7 +26,7 @@
   #+end_src
 
 ** Startup Performance
-  
+   
   #+begin_src emacs-lisp
     ;; The default is 800 kilobytes.  Measured in bytes.
     (setq gc-cons-threshold (* 50 1000 1000))
@@ -47,13 +47,13 @@
   #+begin_src emacs-lisp
     (use-package auto-package-update
       :custom
-      (auto-package-update-interval 7) ;auto updates after N days
+      (auto-package-update-interval 7)             ;auto updates after N days
       (auto-package-update-prompt-before-update t) ;asks before update
-      (auto-package-update-hide-results t) ;prevents buffer with update results from popping up
-      (auto-package-update-delete-old-versions t) ;removes residual old version directories
+      (auto-package-update-hide-results t)         ;prevents buffer with update results from popping up
+      (auto-package-update-delete-old-versions t)  ;removes residual old version directories
       :config
-      (auto-package-update-maybe) ;updates packages at emacs startup
-      (auto-package-update-at-time "01:00")) ;check for updates @ what time
+      (auto-package-update-maybe)                  ;updates packages at emacs startup
+      (auto-package-update-at-time "01:00"))       ;check for updates @ what time
   #+end_src
 
 * Key Bindings
@@ -114,17 +114,23 @@
     #+end_src
 
 ** Fonts
-*** Font Vars
+*** Font Size
     
-    Control global font sizes for Emacs, values are in 1/10th of a point.
+    Control global font sizes for Emacs, values are in 1/10Th of a point.
     
     #+begin_src emacs-lisp
       (defvar efs/default-font-size 120) ;monospaced fonts
       (defvar efs/default-variable-font-size 120) 
     #+end_src
 
-*** Font Faces
-    
+*** Font Selection
+
+    Select the font for each face. Default and fixed-pitch are set as a mono spaced font, and variable pitch to a readable font for something like org mode.
+
+    Fonts need to be installed. Selected fonts:
+    - [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]]
+    - [[https://fonts.google.com/specimen/Source+Sans+Pro][Source Sans Pro]]
+
     #+begin_src emacs-lisp
       (set-face-attribute 'default nil :font "JetBrains Mono" :height efs/default-font-size)
       
