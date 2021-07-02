@@ -35,7 +35,7 @@
 ;; From use-package README
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)                ;; if you use :diminish
+(require 'diminish)  ;; if you use :diminish
 (require 'bind-key)
 
 ;;; Load the config

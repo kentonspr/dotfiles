@@ -28,7 +28,6 @@
 * UI Settings
 
 ** Themes
-
 *** Theme functions
 
     The below functions are for switching and disabling themes.
@@ -60,11 +59,34 @@
      ;; TODO - Figure out keybindings that make sense for these
     #+end_src
     
-*** Doom
+*** Doom Theme
+    [[https://github.com/hlissner/emacs-doom-themes][Github]]
+    
     #+begin_src emacs-lisp
       (use-package doom-themes
         :ensure t
         :config
         (customize-set-variable 'doom-vibrant-brighter-comments t)
         (switch-theme 'doom-vibrant))
+    #+end_src
+
+** Modeline
+*** Doom Modeline
+   [[https://github.com/seagle0128/doom-modeline][Github]]
+   
+    #+begin_src emacs-lisp
+      
+      (use-package doom-modeline
+        :init (doom-modeline-mode 1)
+        :custom ((doom-modeline-height 15)))
+    #+end_src
+
+** Fonts
+*** All The Icons
+    [[https://github.com/domtronn/all-the-icons.el][Github]]
+    
+    Enabling all-the-icons font. Font will still need to be installed after first start with =M-x all-the-icons-install-fonts=
+    
+    #+begin_src emacs-lisp
+      (use-package all-the-icons)
     #+end_src
