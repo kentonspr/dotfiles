@@ -100,7 +100,7 @@
         :ensure t
         :config
         (customize-set-variable 'doom-vibrant-brighter-comments t)
-        (switch-theme 'doom-vibrant))
+        (kmax/switch-theme 'doom-vibrant))
     #+end_src
 
 ** Modeline
