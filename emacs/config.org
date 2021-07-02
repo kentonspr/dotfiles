@@ -2,6 +2,11 @@
 
   Attempting to write a literate config file that gets consumed by babel.
 
+  Inspired by the following configs -
+
+  - Daniel Mai - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Github]]
+  - David Wilson - [[https://github.com/daviwil/emacs-from-scratch][Github]] [[https://www.youtube.com/channel/UCAiiOTio8Yu69c3XnR7nQBQ][Youtube]]
+    
 * Personal Info
 
   #+begin_src emacs-lisp
@@ -9,7 +14,57 @@
           user-mail-address: "kappanaitis@gmail.com")
   #+end_src
 
+* Saved Customization File
+
+  When saving custom settings in Emacs, they get written out to a file. This puts these custom settings into custom.el instead of init.el.
+  
+  #+begin_src emacs-lisp
+    (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+    (load custom-file)
+  #+end_src
+
 * Key Bindings
 
-* UI Tweaks
+* UI Settings
 
+** Themes
+
+*** Theme functions
+
+    The below functions are for switching and disabling themes.
+
+    - =switch-theme=
+      Interactive mode displays a searchable list of themes.
+      Call directly with a theme name as the arg.
+    - =disable-active-themes=
+      Disables all active themes.
+    
+    #+begin_src emacs-lisp
+      (defun switch-theme (theme)
+        "Disables any currently active themes and loads THEME."
+        ;; This interactive call is taken from `load-theme'
+        (interactive
+         (list
+          (intern (completing-read "Load custom theme: "
+                                   (mapc 'symbol-name
+                                         (custom-available-themes))))))
+        (let ((enabled-themes custom-enabled-themes))
+          (mapc #'disable-theme custom-enabled-themes)
+          (load-theme theme t)))
+      
+      (defun disable-active-themes ()
+        "Disables any currently active themes listed in `custom-enabled-themes'."
+        (interactive)
+        (mapc #'disable-theme custom-enabled-themes))     
+      
+     ;; TODO - Figure out keybindings that make sense for these
+    #+end_src
+    
+*** Doom
+    #+begin_src emacs-lisp
+      (use-package doom-themes
+        :ensure t
+        :config
+        (customize-set-variable 'doom-vibrant-brighter-comments t)
+        (switch-theme 'doom-vibrant))
+    #+end_src
