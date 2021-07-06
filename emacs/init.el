@@ -38,6 +38,8 @@
 (require 'diminish)  ;; if you use :diminish
 (require 'bind-key)
 
+;; Make sure all packages default to ensure t
+;; Ensure t installs packages if they aren't already
 (setq use-package-always-ensure t)
 
 ;;; Load the config

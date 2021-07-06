@@ -4,8 +4,8 @@
 
   Inspired by -
 
-  - Daniel Mai - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Github]]
   - David Wilson - [[https://github.com/daviwil/emacs-from-scratch][Github]] [[https://www.youtube.com/channel/UCAiiOTio8Yu69c3XnR7nQBQ][Youtube]]
+  - Daniel Mai - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Github]]
     
 * Personal Info
 
@@ -15,7 +15,6 @@
   #+end_src
 
 * System Settings
-
 ** Saved Customization File
 
   When saving custom settings in Emacs, they get written out to a file. This puts these custom settings into custom.el instead of init.el.
@@ -56,10 +55,83 @@
       (auto-package-update-at-time "01:00"))       ;check for updates @ what time
   #+end_src
 
+** no-littering
+   [[https://github.com/emacscollective/no-littering][Github]]
+
+   Keeps emacs/package files corralled.
+   #+begin_src emacs-lisp
+     ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
+     ;; reliably, set `user-emacs-directory` before loading no-littering!
+     ;(setq user-emacs-directory "~/.cache/emacs")
+     
+     (use-package no-littering)
+     
+     ;; no-littering doesn't set this by default so we must place
+     ;; auto save files in the same path as it uses for sessions
+     (setq auto-save-file-name-transforms
+           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+   #+end_src
+
 * Key Bindings
+** General
+   [[https://github.com/noctuid/general.el][Github]]
+   
+   #+begin_src emacs-lisp
+     (use-package general
+       :after evil
+       :config
+       (general-create-definer kmax/leader-keys
+                               :keymaps '(normal insert visual emacs)
+                               :prefix "SPC"
+                               :global-prefix "C-SPC")
+     
+       (kmax/leader-keys
+        "t"  '(:ignore t :which-key "toggles")
+        "tt" '(counsel-load-theme :which-key "choose theme")
+        "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))))
+    #+end_src
+
+*** Use ESC instead of C-g to quit
+
+    #+begin_src emacs-lisp
+      ;; Make ESC quit prompts
+      (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
+    #+end_src
+    
+** Evil
+  [[https://github.com/emacs-evil/evil][Github]]
+
+  #+begin_src emacs-lisp
+    (use-package evil
+      :init
+      (setq evil-want-integration t)
+      (setq evil-want-keybinding nil)
+      (setq evil-want-C-u-scroll t)
+      (setq evil-want-C-i-jump nil)
+      :config
+      (evil-mode 1)
+      (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+      (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+    
+      ;; Use visual line motions even outside of visual-line-mode buffers
+      (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+      (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+    
+      (evil-set-initial-state 'messages-buffer-mode 'normal)
+      (evil-set-initial-state 'dashboard-mode 'normal))
+  #+end_src
+*** Evil Collection
+    [[https://github.com/emacs-evil/evil-collection][Github]]
+
+    Defines vi like bindings for multiple modes.
+    #+begin_src emacs-lisp
+      (use-package evil-collection
+        :after evil
+        :config
+        (evil-collection-init))
+    #+end_src
   
 * UI Settings
-  
 ** Themes
 *** Theme functions
 
@@ -112,7 +184,14 @@
         :init (doom-modeline-mode 1)
         :custom ((doom-modeline-height 15)))
     #+end_src
-
+    
+*** Column Numbers
+    Adds column number to mode line
+    
+    #+begin_src emacs-lisp
+      (column-number-mode)
+    #+end_src
+    
 ** Fonts
 *** Font Size
     
@@ -150,3 +229,18 @@
       (use-package all-the-icons)
     #+end_src
     
+** Line Numbers
+   Turn on relative line numbers. I would like both literal and relative line numbers columns but I haven't seen a method for that in emacs yet.
+   #+begin_src emacs-lisp
+     (global-display-line-numbers-mode t)
+     (setq display-line-numbers-type 'relative)
+     
+     ;; Modes to ignore line numbers on
+     (dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+       (add-hook mode (lambda () (display-line-numbers-mode 0))))
+   #+end_src
+   
