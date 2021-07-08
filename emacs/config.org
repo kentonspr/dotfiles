@@ -127,7 +127,7 @@
    
     #+begin_src emacs-lisp
       (use-package general
-        :after evil
+        :after '(evil helm)
         :config
         (general-create-definer kmax/leader-keys
                                 :keymaps '(normal insert visual emacs)
@@ -243,9 +243,9 @@
 
 **** Key Bindings
      #+begin_src emacs-lisp
-       (general-define-key :keymaps helm-mapped
-                           (kbd "<tab>") helm-next-line
-                           (kbd "<backtab>") helm-previous-line)
+       (general-define-key :keymaps 'helm-map
+                           (kbd "<tab>") 'helm-next-line
+                           (kbd "<backtab>") 'helm-previous-line)
      #+end_src
      
 *** Hydra
