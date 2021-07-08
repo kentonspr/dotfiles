@@ -79,8 +79,8 @@
     Control global font sizes for Emacs, values are in 1/10Th of a point.
     
     #+begin_src emacs-lisp
-      (defvar efs/default-font-size 120) ;monospaced fonts
-      (defvar efs/default-variable-font-size 120) 
+      (defvar kmax/default-font-size 120) ;monospaced fonts
+      (defvar kmax/default-variable-font-size 120) 
     #+end_src
 
 *** Font Selection
@@ -92,13 +92,13 @@
     - [[https://fonts.google.com/specimen/Source+Sans+Pro][Source Sans Pro]]
 
     #+begin_src emacs-lisp
-      (set-face-attribute 'default nil :font "JetBrains Mono" :height efs/default-font-size)
+      (set-face-attribute 'default nil :font "JetBrains Mono" :height kmax/default-font-size)
       
       ;; Set the fixed pitch face
-      (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :height efs/default-font-size)
+      (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :height kmax/default-font-size)
       
       ;; Set the variable pitch face
-      (set-face-attribute 'variable-pitch nil :font "Source Sans Pro" :height efs/default-variable-font-size :weight 'regular)
+      (set-face-attribute 'variable-pitch nil :font "Source Sans Pro" :height kmax/default-variable-font-size :weight 'regular)
     #+end_src
 
 ** Line Numbers
@@ -166,18 +166,13 @@
       
         (kmax/leader-keys
          "t"  '(:ignore t :which-key "toggles")
-         "tt" '(kmax/switch-theme :which-key "choose theme")
+         ;; "tt" '(kmax/switch-theme :which-key "choose theme")
          ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
          "SPC" '(helm-M-x :which-key "M-x")))
+      
+      (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
      #+end_src
 
-**** Use ESC instead of C-g to quit
-
-     #+begin_src emacs-lisp
-       ;; Make ESC quit prompts
-       (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
-     #+end_src
-    
 *** Evil
    [[https://github.com/emacs-evil/evil][Github]]
 
@@ -265,12 +260,29 @@
         :config
         (helm-mode))
       
-            ;; (use-package helm-projectile
-            ;;   :after: helm-mode
-            ;;   :commands helm-projectile
-            ;; (use-package helm-rg
-            ;;   :after helm-mode)
-            ;; (use-package helm-swoop
-            ;;   :after helm-mode)
+      (use-package helm-projectile
+        :after: helm-mode
+        :commands helm-projectile)
+      (use-package helm-rg
+        :after helm-mode)
+      (use-package helm-swoop
+        :after helm-mode)
     #+end_src
-    
+*** Hydra
+    [[https://github.com/abo-abo/hydra][Github]]
+
+    Hydra ties transient key bindings to related commands.
+
+    #+begin_src emacs-lisp
+      (use-package hydra
+        :defer t)
+      
+      (defhydra hydra-text-scale (:timeout 4)
+        "scale text"
+        ("j" text-scale-increase "in")
+        ("k" text-scale-decrease "out")
+        ("f" nil "finished" :exit t))
+      
+      (kmax/leader-keys
+        "ts" '(hydra-text-scale/body :which-key "scale text"))
+    #+end_src
