@@ -193,20 +193,21 @@
     [[https://github.com/emacs-helm/helm][Github]]
     
     #+begin_src emacs-lisp
+      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
-        :diminish helm-mode
-        :bind (("M-x" . helm-M-x))
-        :init
-        (require 'helm-config))
-        :config
+              :diminish helm-mode
+              :bind (("M-x" . helm-M-x))
+              :init
+              (require 'helm-config))
+              :config
       
-      (use-package helm-projectile
-        :after: helm-mode
-        :commands helm-projectile
-      (use-package helm-rg
-        :after helm-mode)
-      (use-package helm-swoop
-        :after helm-mode)
+            (use-package helm-projectile
+              :after: helm-mode
+              :commands helm-projectile
+            (use-package helm-rg
+              :after helm-mode)
+            (use-package helm-swoop
+              :after helm-mode)
     #+end_src
     
 ** Key bindings
