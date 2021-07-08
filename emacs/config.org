@@ -221,10 +221,12 @@
     [[https://github.com/emacs-helm/helm][Github]]
     
     #+begin_src emacs-lisp
-      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/helm/")
+      (add-to-list 'load-pathd-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
         :diminish helm-mode
-        :bind (("M-x" . helm-M-x))
+        :bind (("M-x" . helm-M-x)
+               ("TAB" . helm-next-line)
+               ("S-tab" . helm-previous-line))
         :init
         (require 'helm-config)
         :config
@@ -237,17 +239,9 @@
         :after helm-mode)
       (use-package helm-swoop
         :after helm-mode)
+      (use-package helm-themes
+        :after helm-mode)
     #+end_src
-
-**** Helm Themes
-     [[https://github.com/emacsorphanage/helm-themes][Github]]
-
-     Includes a function, helm-themes, to give a list of all installed themes for selection
-
-     #+begin_src emacs-lisp
-       (use-package helm-themes
-         :after helm)
-     #+end_src
      
 *** Hydra
     [[https://github.com/abo-abo/hydra][Github]]
