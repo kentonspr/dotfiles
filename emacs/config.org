@@ -173,7 +173,7 @@
       
         (kmax/leader-keys
          "t"  '(:ignore t :which-key "toggles")
-         "tt" '(kmax/switch-theme :which-key "choose theme")
+         ;; "tt" '(kmax/switch-theme :which-key "choose theme")
          ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
          "SPC" '(helm-M-x :which-key "M-x")))
       
@@ -275,6 +275,17 @@
       (use-package helm-swoop
         :after helm-mode)
     #+end_src
+
+**** Helm Themes
+     [[https://github.com/emacsorphanage/helm-themes][Github]]
+
+     Includes a function, helm-themes, to give a list of all installed themes for selection
+
+     #+begin_src emacs-lisp
+       (use-package helm-themes
+         :after helm)
+     #+end_src
+     
 *** Hydra
     [[https://github.com/abo-abo/hydra][Github]]
 
