@@ -78,11 +78,7 @@
                          ((mapc #'disable-theme custom-enabled-themes)
                           (load-theme candidate t))))
      
-     (defun kmax/switch-theme ()
-       (interactive)
-       (helm :sources '(some-helm-source))
-     
-          ;; TODO - Figure out keybindings that make sense for these
+    ;; TODO - Figure out keybindings that make sense for these
    #+end_src
 ** Fonts
 *** Font Size
