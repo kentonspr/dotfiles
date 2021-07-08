@@ -43,43 +43,6 @@
 ** Sane Defaults
    
 * UI Settings
-** Theme functions
-   
-   The below functions are for switching and disabling themes.
-
-   - =switch-theme=
-     Interactive mode displays a searchable list of themes.
-     Call directly with a theme name as the arg.
-   - =disable-active-themes=
-     Disables all active themes.
-    
-   #+begin_src emacs-lisp
-     ;; (defun kmax/switch-theme (theme)
-     ;;   "Disables any currently active themes and loads THEME."
-     ;;   ;; This interactive call is taken from `load-theme'
-     ;;   (interactive
-     ;;    (list
-     ;;     (intern (completing-read "Load custom theme: "
-     ;;                              (mapc 'symbol-name
-     ;;                                    (custom-available-themes))))))
-     ;;   (let ((enabled-themes custom-enabled-themes))
-     ;;     (mapc #'disable-theme custom-enabled-themes)
-     ;;     (load-theme theme t)))
-     
-     ;; (defun kmax/disable-active-themes ()
-     ;;   "Disables any currently active themes listed in `custom-enabled-themes'."
-     ;;   (interactive)
-     ;;   (mapc #'disable-theme custom-enabled-themes))     
-     
-     ;; (setq kmax/switch-theme
-     ;;       `((name . "Switch Theme")
-     ;;         (candidates . ,(mapc 'symbol-name (custom-available-themes)))
-     ;;         (action . (lambda (candidate)
-     ;;                     ((mapc #'disable-theme custom-enabled-themes)
-     ;;                      (load-theme candidate t))))
-     
-    ;; TODO - Figure out keybindings that make sense for these
-   #+end_src
 ** Fonts
 *** Font Size
     
@@ -224,7 +187,7 @@
       (use-package doom-themes
         :ensure t
         :config
-        (customize-set-variable 'doom-vibrant-brighter-comments t))
+        (customize-set-variable 'doom-vibrant-brighter-comments t)
         (load-theme 'doom-vibrant))
     #+end_src
 *** Doom Modeline
