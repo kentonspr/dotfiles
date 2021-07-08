@@ -121,7 +121,7 @@
            `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
    #+end_src
 
-** Key bindings
+** Key bindings (Non Package Specific)
 *** General
     [[https://github.com/noctuid/general.el][Github]]
    
@@ -136,7 +136,7 @@
       
         (kmax/leader-keys
          "t"  '(:ignore t :which-key "toggles")
-         ;; "tt" '(kmax/switch-theme :which-key "choose theme")
+         "tt" '(helm-themes :which-key "choose theme")
          ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
          "SPC" '(helm-M-x :which-key "M-x")))
       
@@ -254,6 +254,7 @@
 
     Hydra ties transient key bindings to related commands.
 
+**** Scale Text
     #+begin_src emacs-lisp
       (use-package hydra
         :defer t)
@@ -262,8 +263,11 @@
         "scale text"
         ("j" text-scale-decrease "down")
         ("k" text-scale-increase "up")
-        ("f" nil "finished" :exit t))
-      
-      (kmax/leader-keys
-        "ts" '(hydra-text-scale/body :which-key "scale text"))
+        ("q" nil "finished" :exit t))
     #+end_src
+    
+***** Key Bindings
+     #+begin_src emacs-lisp
+       (kmax/leader-keys
+         "ts" '(hydra-text-scale/body :which-key "scale text"))
+     #+end_src
