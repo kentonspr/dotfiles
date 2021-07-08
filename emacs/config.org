@@ -224,8 +224,8 @@
       (use-package doom-themes
         :ensure t
         :config
-        (customize-set-variable 'doom-vibrant-brighter-comments t)
-        (kmax/switch-theme 'doom-vibrant))
+        (customize-set-variable 'doom-vibrant-brighter-comments t))
+        (load-theme 'doom-vibrant))
     #+end_src
 *** Doom Modeline
    [[https://github.com/seagle0128/doom-modeline][Github]]
