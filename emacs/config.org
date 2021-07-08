@@ -71,12 +71,12 @@
      ;;   (interactive)
      ;;   (mapc #'disable-theme custom-enabled-themes))     
      
-     (setq kmax/switch-theme
-           `((name . "Switch Theme")
-             (candidates . ,(mapc 'symbol-name (custom-available-themes)))
-             (action . (lambda (candidate)
-                         ((mapc #'disable-theme custom-enabled-themes)
-                          (load-theme candidate t))))
+     ;; (setq kmax/switch-theme
+     ;;       `((name . "Switch Theme")
+     ;;         (candidates . ,(mapc 'symbol-name (custom-available-themes)))
+     ;;         (action . (lambda (candidate)
+     ;;                     ((mapc #'disable-theme custom-enabled-themes)
+     ;;                      (load-theme candidate t))))
      
     ;; TODO - Figure out keybindings that make sense for these
    #+end_src
