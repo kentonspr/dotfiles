@@ -226,6 +226,8 @@
         :diminish helm-mode
         :bind (("M-x" . helm-M-x)
                ("TAB" . helm-next-line)
+               ("<tab>" . helm-next-line)
+               ("<backtab>" . helm-previous-line)
                ("S-tab" . helm-previous-line))
         :init
         (require 'helm-config)
