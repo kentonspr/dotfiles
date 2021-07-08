@@ -187,8 +187,28 @@
        :diminish which-key-mode
        :config
        (which-key-mode)
-       (setq which-key-idle-delay 0.3))
+       (setq which-key-idle-delay 0.1))
    #+end_src
+*** Helm
+    [[https://github.com/emacs-helm/helm][Github]]
+    
+    #+begin_src emacs-lisp
+      (use-package helm
+        :diminish helm-mode
+        :config
+        :bind (("M-x" . helm-M-x))
+      
+        (require 'helm-config))
+      
+      (use-package helm-projectile
+        :after: helm-mode
+        :commands helm-projectile
+      (use-package helm-rg
+        :after helm-mode)
+      (use-package helm-swoop
+        :after helm-mode)
+    #+end_src
+    
 ** Key bindings
 *** General
     [[https://github.com/noctuid/general.el][Github]]
@@ -201,8 +221,9 @@
                                 :keymaps '(normal insert visual emacs)
                                 :prefix "SPC"
                                 :global-prefix "C-SPC")
-     
+      
         (kmax/leader-keys
+         "SPC" '(helm-M-x :which-key "M-x")
          "t"  '(:ignore t :which-key "toggles")
          "tt" '(counsel-load-theme :which-key "choose theme")
          "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))))
@@ -219,23 +240,24 @@
    [[https://github.com/emacs-evil/evil][Github]]
 
    #+begin_src emacs-lisp
-     (use-package evil
-       :init
-       (setq evil-want-integration t)
-       (setq evil-want-keybinding nil)
-       (setq evil-want-C-u-scroll t)
-       (setq evil-want-C-i-jump nil)
-       :config
-       (evil-mode 1)
-       (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-       (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-    
-       ;; Use visual line motions even outside of visual-line-mode buffers
-       (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-       (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-    
-       (evil-set-initial-state 'messages-buffer-mode 'normal)
-       (evil-set-initial-state 'dashboard-mode 'normal))
+          (use-package evil
+            :init
+            (setq evil-want-integration t)
+            (setq evil-want-keybinding nil)
+            (setq evil-want-C-u-scroll t)
+            (setq evil-want-C-i-jump nil)
+            :config
+            (evil-mode 1)
+            (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+            ;; I'm sure aboute this
+            ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+         
+            ;; Use visual line motions even outside of visual-line-mode buffers
+            (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+            (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+         
+            (evil-set-initial-state 'messages-buffer-mode 'normal)
+            (evil-set-initial-state 'dashboard-mode 'normal))
    #+end_src
    
 *** Evil Collection
@@ -245,6 +267,7 @@
     #+begin_src emacs-lisp
       (use-package evil-collection
         :after evil
+        :custom (evil-collection-setup-minibuffer t)
         :config
         (evil-collection-init))
     #+end_src
