@@ -195,10 +195,10 @@
     #+begin_src emacs-lisp
       (use-package helm
         :diminish helm-mode
-        :config
         :bind (("M-x" . helm-M-x))
-      
+        :init
         (require 'helm-config))
+        :config
       
       (use-package helm-projectile
         :after: helm-mode
