@@ -165,8 +165,8 @@
                                 :global-prefix "C-SPC")
       
         (kmax/leader-keys
-         ;; "t"  '(:ignore t :which-key "toggles")
-         ;; "tt" '(kmax/switch-theme :which-key "choose theme")
+         "t"  '(:ignore t :which-key "toggles")
+         "tt" '(kmax/switch-theme :which-key "choose theme")
          ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
          "SPC" '(helm-M-x :which-key "M-x")))
      #+end_src
