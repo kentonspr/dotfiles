@@ -224,11 +224,6 @@
       (add-to-list 'load-pathd-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
         :diminish helm-mode
-        :bind (("M-x" . helm-M-x)
-               ("TAB" . helm-next-line)
-               ("<tab>" . helm-next-line)
-               ("<backtab>" . helm-previous-line)
-               ("S-tab" . helm-previous-line))
         :init
         (require 'helm-config)
         :config
@@ -244,6 +239,14 @@
       (use-package helm-themes
         :after helm-mode)
     #+end_src
+
+**** Key Bindings
+
+     #+begin_src emacs-lisp
+       (general-define-key (kbd "M-x") 'helm-M-x)
+       (general-define-key (kbd "TAB") 'helm-next-line)
+       (general-define-key (kbd "S-tab") 'helm-previous-line)
+     #+end_src
      
 *** Hydra
     [[https://github.com/abo-abo/hydra][Github]]
