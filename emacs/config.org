@@ -165,10 +165,10 @@
                                 :global-prefix "C-SPC")
       
         (kmax/leader-keys
-         "SPC" '(helm-M-x :which-key "M-x")
          ;; "t"  '(:ignore t :which-key "toggles")
          ;; "tt" '(kmax/switch-theme :which-key "choose theme")
-         ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))))
+         ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
+         "SPC" '(helm-M-x :which-key "M-x")))
      #+end_src
 
 **** Use ESC instead of C-g to quit
