@@ -223,7 +223,7 @@
     [[https://github.com/emacs-helm/helm][Github]]
     
     #+begin_src emacs-lisp
-      (add-to-list 'load-pathd-path "/usr/local/share/emacs/site-lisp/helm/")
+      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
         :diminish helm-mode
       (require 'helm-config)
