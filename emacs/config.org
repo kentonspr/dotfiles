@@ -122,28 +122,6 @@
    #+end_src
 
 ** Key bindings (Non Package Specific)
-*** General
-    [[https://github.com/noctuid/general.el][Github]]
-   
-    #+begin_src emacs-lisp
-      (use-package general
-        :after evil
-        :config
-        (general-create-definer kmax/leader-keys
-                                :keymaps '(normal insert visual emacs)
-                                :prefix "SPC"
-                                :global-prefix "C-SPC")
-      
-        (kmax/leader-keys
-         "t"  '(:ignore t :which-key "toggles")
-         "tt" '(helm-themes :which-key "choose theme")
-         ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
-         "SPC" '(helm-M-x :which-key "M-x")))
-      
-      (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
-      (general-define-key (kbd "M-x") 'helm-M-x)
-     #+end_src
-
 *** Evil
    [[https://github.com/emacs-evil/evil][Github]]
 
@@ -180,6 +158,29 @@
         (evil-collection-init))
     #+end_src
   
+*** General
+    [[https://github.com/noctuid/general.el][Github]]
+   
+    #+begin_src emacs-lisp
+      (use-package general
+        :after evil
+        :config
+        (general-evil-setup t) 
+        (general-create-definer kmax/leader-keys
+                                :keymaps '(normal insert visual emacs)
+                                :prefix "SPC"
+                                :global-prefix "C-SPC")
+      
+        (kmax/leader-keys
+         "t"  '(:ignore t :which-key "toggles")
+         "tt" '(helm-themes :which-key "choose theme")
+         ;; "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org")))
+         "SPC" '(helm-M-x :which-key "M-x")))
+      
+      (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
+      (general-define-key (kbd "M-x") 'helm-M-x)
+     #+end_src
+     
 ** UI
 *** Doom Theme
     [[https://github.com/hlissner/emacs-doom-themes][Github]]
@@ -227,11 +228,8 @@
         :diminish helm-mode
         :bind (:map helm-map 
                 ([tab] . helm-execute-if-single-persistent-action))
-        :init
-        (require 'helm-config)
-        :config
-        (general-evil-setup t) 
-        (helm-mode))
+      (require 'helm-config)
+      (helm-mode))
       
       (defun helm-execute-if-single-persistent-action (&optional attr split-onewindow)
         "Execute persistent action if the candidate list is less than 2 OR if theres no input and only one non trivial thing to select from"
