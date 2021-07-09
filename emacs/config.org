@@ -225,12 +225,27 @@
       (add-to-list 'load-pathd-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
         :diminish helm-mode
-        :bind (((kbd "<tab>") 'helm-next-line)
-               ((kbd "<backtab>") 'helm-previous-line))
+        :bind (:map helm-map 
+                ([tab] . helm-execute-if-single-persistent-action))
         :init
         (require 'helm-config)
         :config
+        (general-evil-setup t) 
         (helm-mode))
+      
+      (defun helm-execute-if-single-persistent-action (&optional attr split-onewindow)
+        "Execute persistent action if the candidate list is less than 2 OR if theres no input and only one non trivial thing to select from"
+        (interactive)
+        (with-helm-alive-p
+          (cond ((and (string= helm-input helm-ff-default-directory) (eq (helm-get-candidate-number) 3))
+                 (progn
+                   (helm-next-line)
+                   (helm-next-line)
+                   (helm-execute-persistent-action))
+                 )
+                ((> (helm-get-candidate-number) 2) (double-flash-mode-line))
+                (t (helm-execute-persistent-action))
+                )))
       
       (use-package helm-projectile
         :after: helm-mode
@@ -243,12 +258,12 @@
         :after helm-mode)
     #+end_src
 
-# **** Key Bindings
-#      #+begin_src emacs-lisp
-#        (general-define-key :keymaps 'helm-map
-#                            (kbd "<tab>") 'helm-next-line
-#                            (kbd "<backtab>") 'helm-previous-line)
-#      #+end_src
+**** Key Bindings
+     #+begin_src emacs-lisp
+       ;; (general-define-key :keymaps 'helm-map
+       ;;                     (kbd "<tab>") 'helm-next-line
+       ;;                     (kbd "<backtab>") 'helm-previous-line)
+     #+end_src
      
 *** Hydra
     [[https://github.com/abo-abo/hydra][Github]]
