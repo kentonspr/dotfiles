@@ -226,11 +226,13 @@
       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/helm/")
       (use-package helm
         :diminish helm-mode
+        :init
+        :config
       (require 'helm-config)
       (helm-mode))
       
       (use-package helm-projectile
-        :after: helm-mode
+        :after helm-mode
         :commands helm-projectile)
       (use-package helm-rg
         :after helm-mode)
