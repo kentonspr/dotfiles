@@ -1,0 +1,6 @@
+# Source all custom zprofile configs
+if [ -e $HOME/.zprofile.d ]; then
+    for i in $(find $HOME/.zprofile.d -type f -name '*.zsh'|sort); do
+        source "$i"
+    done
+fi
