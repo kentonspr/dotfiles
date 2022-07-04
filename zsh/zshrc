@@ -1,5 +1,5 @@
 # Source all custom zshrc configs
-if [ -e $HOME/.zshrc.d ]; then
+if [ -e $HOME/.zsh/zshrc.d ]; then
     for i in $(find $HOME/.zsh/zshrc.d -type f -name '*.zsh'|sort); do
         source "$i"
     done
