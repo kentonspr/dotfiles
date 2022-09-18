@@ -1,3 +1,5 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # Source all custom zshrc configs
 if [ -e $HOME/.zsh/zshrc.d ]; then
     for i in $(find $HOME/.zsh/zshrc.d -type l,f -name '*.zsh'|sort); do
