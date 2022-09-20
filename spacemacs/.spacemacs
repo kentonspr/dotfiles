@@ -49,10 +49,15 @@ This function should only modify configuration layer settings."
            yaml-enable-lsp t)
      docker
      helm
+     (json :variables json-fmt-tool 'prettier
+           json-fmt-on-save t
+           js-indent-level 2)
      (javascript :variables
                  javascript-import-tool 'import-js
-                 javascript-fmt-tool 'prettier-js
-                 javascript-fmt-on-save t)
+                 javascript-fmt-tool 'prettier
+                 javascript-fmt-on-save t
+                 js-indent-level 2
+                 js2-basic-offset 2)
      auto-completion
      (treemacs :variables
                treemacs-use-all-the-icons-theme t
