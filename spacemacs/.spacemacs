@@ -56,8 +56,7 @@ This function should only modify configuration layer settings."
                  javascript-import-tool 'import-js
                  javascript-fmt-tool 'prettier
                  javascript-fmt-on-save t
-                 js-indent-level 2
-                 js2-basic-offset 2)
+                 js-indent-level 2)
      auto-completion
      (treemacs :variables
                treemacs-use-all-the-icons-theme t
@@ -87,7 +86,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      colors
      (unicode-fonts :variables
-                    unicode-fonts-enable-ligatures t)
+                    unicode-fonts-enable-ligatures nil)
      )
 
    ;; List of additional packages that will be installed without being
@@ -586,7 +585,6 @@ before packages are loaded."
                     :server-id 'terraform-ls))
 
   (add-hook 'terraform-mode-hook #'lsp)
-  (add-to-list 'exec-path (string-trim-right (shell-command-to-string "$SHELL -c 'source .zshrc && echo $NVM_BIN'")))
   )
 
 
