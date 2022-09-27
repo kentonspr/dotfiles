@@ -1,8 +1,18 @@
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# Source all custom zshrc configs
+# Source all zshrc configs
 if [ -e $HOME/.zsh/zshrc.d ]; then
     for i in $(find $HOME/.zsh/zshrc.d -type l,f -name '*.zsh'|sort); do
         source "$i"
     done
 fi
+
+# Emacs tramp fix. No crazy prompts
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
+# Source plugins
+source ~/.zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source ~/.zsh/plugins/git/git.plugin.zsh
+source ~/.zsh/plugins/zsh-git-prompt/zshrc.sh
+source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
