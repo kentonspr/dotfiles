@@ -1,7 +1,8 @@
+fpath+=${ZDOTDIR}/functions
 
 # Source all zshrc configs
-if [ -e $HOME/.zsh/zshrc.d ]; then
-    for i in $(find $HOME/.zsh/zshrc.d -type l,f -name '*.zsh'|sort); do
+if [ -e $ZDOTDIR/zshrc.d ]; then
+    for i in $(find $ZDOTDIR/zshrc.d -type l,f -name '*.zsh'|sort); do
         source "$i"
     done
 fi
@@ -10,9 +11,18 @@ fi
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 # Source plugins
-source ~/.zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source ~/.zsh/plugins/git/git.plugin.zsh
-source ~/.zsh/plugins/zsh-git-prompt/zshrc.sh
-source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source $ZDOTDIR/plugins/LS_COLORS/lscolors.sh
+source $ZDOTDIR/plugins/git/git.plugin.zsh
+source $ZDOTDIR/plugins/zsh-git-prompt/zshrc.sh
+source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+
+PROMPT="%{$fg[green]%}$USER@%m %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+PROMPT+=' %{$fg[cyan]%}%c%{$reset_color%} $(git_super_status)'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
