@@ -1,9 +1,6 @@
 # Source all custom zprofile configs
-echo "In .zprofile" >> ~/zprofile_message_log
-
 if [ -e $ZDOTDIR/zprofile.d ]; then
     for i in $(find $ZDOTDIR/zprofile.d -type l,f -name '*.zsh'|sort); do
-        echo "Executing $i" >> ~/zprofile_message_log
         source $i
     done
 fi
