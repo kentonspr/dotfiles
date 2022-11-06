@@ -14,9 +14,13 @@ fi
 # Source plugins
 source $ZDOTDIR/plugins/LS_COLORS/lscolors.sh
 source $ZDOTDIR/plugins/git/git.plugin.zsh
+
 # There are many zsh-git-prompt repos. This is the one used here - https://github.com/zsh-git-prompt/zsh-git-prompt
 source $ZDOTDIR/plugins/zsh-git-prompt/zshrc.sh
+
 source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zstyle ':autocomplete:*' widget-style menu-select
+
 source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZDOTDIR/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
