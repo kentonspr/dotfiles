@@ -198,8 +198,6 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 
 **** buffers
 
-Key bindings for buffer commands
-
 #+begin_src emacs-lisp
   (kmax/leader-keys
     "TAB" '((lambda () (interactive) (switch-to-buffer (other-buffer))) :which-key "previous buffer")
@@ -220,8 +218,6 @@ Key bindings for buffer commands
 
 **** files
 
-Key bindings for file commands
-
 #+begin_src emacs-lisp
   (kmax/leader-keys
      "f"  '(:ignore t :which-key "files")
@@ -240,8 +236,6 @@ Key bindings for file commands
 
 **** git
 
-Key bindings for Magit package
-
 #+begin_src emacs-lisp
   (kmax/leader-keys
      "g"  '(:ignore t :which-key "git")
@@ -254,8 +248,6 @@ Key bindings for Magit package
 #+end_src
 
 **** project
-
-Key bindings for project based commands including treemacs workspace commands
 
 #+begin_src emacs-lisp
   (kmax/leader-keys
@@ -273,8 +265,6 @@ Key bindings for project based commands including treemacs workspace commands
 
 **** toggles
 
-Key bindings for arbitrary toggles like themes, text zoom, etc...
-
 #+begin_src emacs-lisp
   (kmax/leader-keys
      "t"  '(:ignore t :which-key "toggles")
@@ -284,8 +274,6 @@ Key bindings for arbitrary toggles like themes, text zoom, etc...
 
 **** quit
 
-Key bindings for quit path
-
 #+begin_src emacs-lisp
   (kmax/leader-keys
      "q"  '(:ignore t :which-key "quit options")
@@ -294,8 +282,6 @@ Key bindings for quit path
 #+end_src
      
 **** windows
-
-Key bindings for window commands
 
 #+begin_src emacs-lisp
   (kmax/leader-keys
