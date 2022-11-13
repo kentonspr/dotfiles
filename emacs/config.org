@@ -14,6 +14,7 @@
           user-mail-address: "kappanaitis@gmail.com")
   #+end_src
 
+
 * System
 ** Saved Customization File
 
@@ -39,196 +40,6 @@
     
     (add-hook 'emacs-startup-hook #'efs/display-startup-time) 
   #+end_src
-
-** Auto Package Updates
-  [[https://github.com/rranelli/auto-package-update.el][Github]]
-  
-  #+begin_src emacs-lisp
-    (use-package auto-package-update
-      :custom
-      (auto-package-update-interval 7)             ;auto updates after N days
-      (auto-package-update-prompt-before-update t) ;asks before update
-      (auto-package-update-hide-results t)         ;prevents buffer with update results from popping up
-      (auto-package-update-delete-old-versions t)  ;removes residual old version directories
-      :config
-      (auto-package-update-maybe)                  ;updates packages at emacs startup
-      (auto-package-update-at-time "01:00"))       ;check for updates @ what time
-  #+end_src
-   
-** no-littering
-   [[https://github.com/emacscollective/no-littering][Github]]
-
-   Keeps emacs/package files corralled.
-   #+begin_src emacs-lisp
-     ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
-     ;; reliably, set `user-emacs-directory` before loading no-littering!
-     ;(setq user-emacs-directory "~/.cache/emacs")
-     
-     (use-package no-littering)
-     
-     ;; no-littering doesn't set this by default so we must place
-     ;; auto save files in the same path as it uses for sessions
-     (setq auto-save-file-name-transforms
-           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-   #+end_src
-
-** Key bindings
-*** evil - vim keys
-   [[https://github.com/emacs-evil/evil][Github]]
-
-   #+begin_src emacs-lisp
-	  (use-package evil
-	    :init
-	    (setq evil-want-integration t)
-	    (setq evil-want-keybinding nil)
-	    ;; (setq evil-want-C-u-scroll t)
-	    ;; (setq evil-want-C-i-jump nil)
-	    :config
-	    (evil-mode 1)
-	    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-	    ;; I'm not sure aboute this
-	    ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-
-	    ;; Use visual line motions even outside of visual-line-mode buffers
-	    ;; Changes numbered motion key behaviour. dj would only delete one line.
-	    ;; d5j would delete 5 total lines, not 5 lines below
-	    ;; (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-	    ;; (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-	    (evil-set-initial-state 'messages-buffer-mode 'normal)
-	    (evil-set-initial-state 'dashboard-mode 'normal))
-   #+end_src
-   
-*** evil-collection - vim keys for other modes
-    [[https://github.com/emacs-evil/evil-collection][Github]]
-
-    Defines vi like bindings for multiple modes.
-    #+begin_src emacs-lisp
-      (use-package evil-collection
-        :after evil
-        :custom (evil-collection-setup-minibuffer t)
-        :config
-        (evil-collection-init))
-    #+end_src
-  
-*** evil-commentary
-
-    #+begin_src emacs-lisp
-      (use-package evil-commentary)
-      (evil-commentary-mode)
-    #+end_src
-
-*** evil-eurround
-
-    #+begin_src emacs-lisp
-      (use-package evil-surround
-	:ensure t
-	:config
-	(global-evil-surround-mode 1))
-    #+end_src
-
-*** General - Custom Keybindings
-    [[https://github.com/noctuid/general.el][Github]]
-   
-    #+begin_src emacs-lisp
-      (use-package general
-	:after evil
-	:config
-	(general-evil-setup t) 
-	(general-create-definer kmax/leader-keys
-				:keymaps '(normal insert visual emacs)
-				:prefix "SPC"
-				:global-prefix "C-SPC")
-
-	(kmax/leader-keys
-	  "SPC" '(counsel-M-x :which-key "M-x")))
-
-      (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
-     #+end_src
-     
-*** Leader Bindings
-**** buffers
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	 "TAB" '((lambda () (interactive) (switch-to-buffer (other-buffer))) :which-key "previous buffer")
-	 "b"  '(:ignore t :which-key "buffers")
-	 "bb" '(counsel-switch-buffer :which-key "buffers list")
-	 "bd" '(kill-this-buffer :which-key "kill buffer")
-	 "bn" '(:ignore t :which-key "new buffers")
-	 "bnn" '(evil-buffer-new :which-key "new buffer"))
-	 ; "bnl" '(:ignore t :which-key "new buffer left")
-	 ; "bnr" '(:ignore t :which-key "new buffer right")
-	 ; "bnt" '(:ignore t :which-key "new buffer top")
-	 ; "bnb" '(:ignore t :which-key "new buffer bottom")
-	 ; "b C-S-d" '(kill-matching-buffers :which-key "kill buffers regex") ; I think I need to write a function here to run kill-matching-buffers with no-ask
-     #+end_src
-
-**** files
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "f"  '(:ignore t :which-key "files")
-	  "fe"  '(:ignore t :which-key "emacs files")
-	  "fec" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org"))) :which-key "config.org")
-	  "fei" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "init.el")
-	  "fer" '((lambda () (interactive) (load-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "reload init.el")
-	  ;; "fec" '(:ignore t :which-key "emacs files")
-	  "ff"  '(find-file :which-key "find files")
-	  "fs"  '(save-buffer :which-key "save")
-	  "fS"  '(:ignore t :which-key "save options")
-	  "fSa" '(save-some-buffers :which-key "save all")
-	  "fSg" '(magit-save-repository-buffers :which-key "save repo")
-	  "fSp" '(projectile-save-project-buffers :which-key "save project"))
-     #+end_src
-
-**** git
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "g"  '(:ignore t :which-key "git")
-	  "gb"  '(magit-branch :which-key "branch")
-	  "gc"  '(magit-commit :which-key "commit")
-	  "gF"  '(magit-pull :which-key "pull")
-	  "gP"  '(magit-push :which-key "push")
-	  "gr"  '(magit-rebase :which-key "push")
-	  "gs"  '(magit-status :which-key "status"))
-     #+end_src
-
-**** project
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "p"  '(:ignore t :which-key "projects")
-	  "pp" '(projectile-switch-project :which-key "switch project")
-	  "pt" '(projectile-switch-project :which-key "switch project"))
-     #+end_src
-
-**** toggles
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "t"  '(:ignore t :which-key "toggles")
-	  "tt" '(counsel-load-theme :which-key "choose theme")
-	  "ts" '(hydra-text-scale/body :which-key "scale text"))
-     #+end_src
-
-**** quit
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "q"  '(:ignore t :which-key "quit options")
-	  "qq" '(kill-emacs :which-key "quit")
-	  "qr" '(restart-emacs :which-key "restart"))
-     #+end_src
-     
-**** windows
-
-     #+begin_src emacs-lisp
-       (kmax/leader-keys
-	  "w"  '(:ignore t :which-key "windows")
-	  "wd" '(delete-window :which-key "windows"))
-     #+end_src
 
 ** Built-Ins
 
@@ -283,15 +94,251 @@
       (set-face-attribute 'variable-pitch nil :font "Source Sans Pro" :height kmax/default-variable-font-size :weight 'regular)
     #+end_src
 
+
+* Evil
+
+[[https://github.com/emacs-evil/evil][Github]]
+
+Evil is used to get vim key mappings and modal operation for editing text
+
+#+begin_src emacs-lisp
+  (use-package evil
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    ;; (setq evil-want-C-u-scroll t)
+    ;; (setq evil-want-C-i-jump nil)
+    :custom
+    (evil-undo-system 'undo-tree)
+    :config
+    (evil-mode 1)
+    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+    ;; I'm not sure aboute this
+    ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+    ;; Use visual line motions even outside of visual-line-mode buffers
+    ;; Changes numbered motion key behaviour. dj would only delete one line.
+    ;; d5j would delete 5 total lines, not 5 lines below
+    ;; (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    ;; (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
+#+end_src
+   
+** evil-collection
+
+[[https://github.com/emacs-evil/evil-collection][Github]]
+
+Defines vi like bindings for multiple modes outside of the base evil mappings
+
+#+begin_src emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :custom (evil-collection-setup-minibuffer t)
+    :config
+    (evil-collection-init))
+#+end_src
+  
+** evil-commentary
+
+[[https://github.com/linktohack/evil-commentary][Github]]
+
+Allows for commenting with `gcc` for a single line or `gc<direction>`, e.f. `gc2j` for comment this line and 2 below
+
+#+begin_src emacs-lisp
+  (use-package evil-commentary)
+  (evil-commentary-mode)
+#+end_src
+
+** evil-eurround
+
+[[https://github.com/emacs-evil/evil-surround][Github]]
+
+Surrounds selection with pairs. Use `ysiw"` to surround inner word with `"`. For `()` and `[]` if you use the open bracket/brace
+you will get a space in your surrounds like so - `[ foo ]`. If you use the close option you will get no space like so - `[bar]`
+
+#+begin_src emacs-lisp
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1))
+#+end_src
+
+    
+* General
+
+[[https://github.com/noctuid/general.el][Github]]
+
+Use General to create leader key bindings. Setting a custom definer function in the `kmax` namespace.
+
+`kmax/leader-keys` can be called throughout the config to define new bindings. It is set with the `SPC` prefix
+and the `C-SPC` global-prefix. All keys defined in `kmax/leader-keys` can be accessed after using the `SPC` leader
+or `C-SPC` leader where `SPC` is used for something else, e.g. Evil `insert` state.
+   
+#+begin_src emacs-lisp
+  (use-package general
+    :after evil
+    :config
+    (general-evil-setup t) 
+    (general-create-definer kmax/leader-keys
+			    :keymaps '(override)
+			    :states '(normal insert visual emacs treemacs magit) 
+			    :prefix "SPC"
+			    :global-prefix "C-SPC")
+
+    (kmax/leader-keys
+      "SPC" '(counsel-M-x :which-key "M-x")))
+
+  (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
+     
+** Leader Bindings
+
+Leader bindings for all packages are below. Helps keep a good view of what is in use for each chain of leaders.
+
+**** buffers
+
+Key bindings for buffer commands
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+    "TAB" '((lambda () (interactive) (switch-to-buffer (other-buffer))) :which-key "previous buffer")
+    "b"  '(:ignore t :which-key "buffers")
+    "bb" '(counsel-switch-buffer :which-key "buffers list")
+    "bd" '(kill-this-buffer :which-key "kill buffer")
+    "bn" '(:ignore t :which-key "new buffers")
+    "bnn" '(evil-buffer-new :which-key "new buffer"))
+
+    ; Need some functions to discover if a window is already adjacent or if it needs to create one and then
+    ; open new buffers
+    ; "bnl" '(:ignore t :which-key "new buffer left")
+    ; "bnr" '(:ignore t :which-key "new buffer right")
+    ; "bnt" '(:ignore t :which-key "new buffer top")
+    ; "bnb" '(:ignore t :which-key "new buffer bottom")
+    ; "b C-S-d" '(kill-matching-buffers :which-key "kill buffers regex") 
+#+end_src
+
+**** files
+
+Key bindings for file commands
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "f"  '(:ignore t :which-key "files")
+     "fe"  '(:ignore t :which-key "emacs files")
+     "fec" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org"))) :which-key "config.org")
+     "fei" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "init.el")
+     "fer" '((lambda () (interactive) (load-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "reload init.el")
+     ;; "fec" '(:ignore t :which-key "emacs files")
+     "ff"  '(counsel-find-file :which-key "find files")
+     "fs"  '(save-buffer :which-key "save")
+     "fS"  '(:ignore t :which-key "save options")
+     "fSa" '(save-some-buffers :which-key "save all")
+     "fSg" '(magit-save-repository-buffers :which-key "save repo")
+     "fSp" '(projectile-save-project-buffers :which-key "save project"))
+#+end_src
+
+**** git
+
+Key bindings for Magit package
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "g"  '(:ignore t :which-key "git")
+     "gb"  '(magit-branch :which-key "branch")
+     "gc"  '(magit-commit :which-key "commit")
+     "gF"  '(magit-pull :which-key "pull")
+     "gP"  '(magit-push :which-key "push")
+     "gr"  '(magit-rebase :which-key "push")
+     "gs"  '(magit-status :which-key "status"))
+#+end_src
+
+**** project
+
+Key bindings for project based commands including treemacs workspace commands
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "p"   '(:ignore t :which-key "projects")
+     "pp"  '(projectile-switch-project :which-key "switch project")
+     "pt"  '(:ignore t :which-key "treemacs")
+     "pta" '(treemacs-finish-edit :which-key "apply workspace config")
+     "ptc" '(treemacs-create-workspace :which-key "create workspace")
+     "ptd" '(treemacs-remove-workspace :which-key "delete workspace")
+     "pte" '(treemacs-edit-workspaces :which-key "edit workspaces")
+     "pts" '(treemacs-switch-workspace :which-key "switch workspace")
+     "ptt" '(treemacs :which-key "view workspace")
+  )
+#+end_src
+
+**** toggles
+
+Key bindings for arbitrary toggles like themes, text zoom, etc...
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "t"  '(:ignore t :which-key "toggles")
+     "tt" '(counsel-load-theme :which-key "choose theme")
+     "ts" '(hydra-text-scale/body :which-key "scale text"))
+#+end_src
+
+**** quit
+
+Key bindings for quit path
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "q"  '(:ignore t :which-key "quit options")
+     "qq" '(kill-emacs :which-key "quit")
+     "qr" '(restart-emacs :which-key "restart"))
+#+end_src
+     
+**** windows
+
+Key bindings for window commands
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "w"  '(:ignore t :which-key "windows")
+     "wd" '(delete-window :which-key "windows")
+     "wh" '(evil-window-left :which-key "windows")
+     "wj" '(evil-window-down :which-key "windows")
+     "wk" '(evil-window-up :which-key "windows")
+     "wl" '(evil-window-right :which-key "windows"))
+#+end_src
+
+
 * Packages
+
+** Auto Package Updates
+[[https://github.com/rranelli/auto-package-update.el][Github]]
+  
+#+begin_src emacs-lisp
+  (use-package auto-package-update
+    :custom
+    (auto-package-update-interval 7)             ;auto updates after N days
+    (auto-package-update-prompt-before-update t) ;asks before update
+    (auto-package-update-hide-results t)         ;prevents buffer with update results from popping up
+    (auto-package-update-delete-old-versions t)  ;removes residual old version directories
+    :config
+    (auto-package-update-maybe)                  ;updates packages at emacs startup
+    (auto-package-update-at-time "01:00"))       ;check for updates @ what time
+#+end_src
+   
+
 ** All The Icons
     [[https://github.com/domtronn/all-the-icons.el][Github]]
     
     Enabling all-the-icons font. Font will still need to be installed after first start with =M-x all-the-icons-install-fonts=
     
-    #+begin_src emacs-lisp
-      (use-package all-the-icons)
-    #+end_src
+#+begin_src emacs-lisp
+  (when (display-graphic-p)
+     (require 'all-the-icons))
+
+  (use-package all-the-icons
+     :if (display-graphic-p))
+#+end_src
+
 
 ** Company Mode
    [[https://company-mode.github.io/][Github.io]]
@@ -302,6 +349,7 @@
      (use-package company)
      (add-hook 'after-init-hook 'global-company-mode)
    #+end_src
+
 
 ** Doom Theme
     [[https://github.com/hlissner/emacs-doom-themes][Github]]
@@ -316,6 +364,7 @@
         (load-theme 'doom-vibrant))
     #+end_src
     
+
 ** Doom Modeline
    [[https://github.com/seagle0128/doom-modeline][Github]]
 
@@ -327,6 +376,22 @@
         :custom ((doom-modeline-height 15)))
     #+end_src
     
+
+** eldoc
+
+#+begin_src emacs-lisp
+(use-package eldoc
+  :diminish eldoc-mode)
+#+end_src
+
+
+** flycheck
+
+#+begin_src emacs-lisp
+  (use-package flycheck)
+#+end_src
+
+
 ** helpful
    [[https://github.com/Wilfred/helpful][Github]]
 
@@ -361,6 +426,20 @@
      (global-set-key (kbd "C-h C") #'helpful-command)
    #+end_src
 
+
+** hl-todo
+
+#+begin_src emacs-lisp
+  (use-package hl-todo
+     :ensure t
+     :custom-face
+     (hl-todo ((t (:inherit hl-todo :italic t))))
+     :hook ((prog-mode . hl-todo-mode)
+	    (org-mode . hl-todo-mode)
+	    (yaml-mode . hl-todo-mode)))
+#+end_src
+
+
 ** Hydra
     [[https://github.com/abo-abo/hydra][Github]]
 
@@ -381,46 +460,119 @@
         ("q" nil "finished" :exit t))
     #+end_src
     
+
 ** ivy / counsel / swiper
-   [[https://github.com/abo-abo/swiper][Github]]
+[[https://github.com/abo-abo/swiper][Github]]
 
-   Tools for narrowing lists through fuzzy search (Ivy), functions to use narrowing for things like files (Cousel), and a search mechanism (Swiper)
+Tools for narrowing lists through fuzzy search (Ivy), functions to use narrowing for things like files (Cousel), and a search mechanism (Swiper)
    
-   #+begin_src emacs-lisp
-     (use-package ivy
-       :init (ivy-mode 1))
+ #+begin_src emacs-lisp
+    (use-package ivy
+     :custom
+      (ivy-count-format "(%d/%d) ")
+      (ivy-use-virtual-buffers t)
+     :config (ivy-mode))
 
-     (setq ivy-use-virtual-buffers t)
-     (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
 
-     (global-set-key (kbd "C-s") 'swiper-isearch)
-     (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-s") 'swiper-isearch)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
 
-     (use-package counsel)
+    (use-package counsel
+      :after ivy)
 
-     (use-package ivy-rich
-       :init (ivy-rich-mode 1))
-     (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+    (use-package counsel-projectile
+      :after counsel
+      :config (counsel-projectile-mode))
+
+    (use-package swiper
+      :after ivy
+      :bind (("C-s" . swiper)))
+
+    (use-package ivy-rich
+      :after ivy
+      :init (ivy-rich-mode 1)
+      :custom
+      (ivy-virtual-abbreviate 'full
+       ivy-rich-switch-buffer-align-virtual-buffer t
+       ivy-rich-path-style 'abbrev)
+      :config
+      (ivy-set-display-transformer 'ivy-switch-buffer
+				   'ivy-rich-switch-buffer-transformer))
+
+    (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+
+    (use-package ivy-xref
+      :init
+      ;; xref initialization is different in Emacs 27 - there are two different
+      ;; variables which can be set rather than just one
+      (when (>= emacs-major-version 27)
+	(setq xref-show-definitions-function #'ivy-xref-show-defs))
+      ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
+      ;; commands other than xref-find-definitions (e.g. project-find-regexp)
+      ;; as well
+      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
+   (use-package all-the-icons-ivy
+     :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
    #+end_src
 
-** Magit
-    [[https://github.com/magit/magit][GitHub]]
 
-    Best git edit integration ever
+** Magit
+
+[[https://github.com/magit/magit][GitHub]]
+
+Best git edit integration ever
 
     #+begin_src emacs-lisp
       (use-package magit)
     #+end_src
     
+
+** multiple-cursors
+[[https://github.com/magnars/multiple-cursors.el][Github]]
+
+Select multiple lines and add cursor to the beginning of all lines in selection
+
+#+begin_src emacs-lisp
+  (use-package multiple-cursors)
+#+end_src
+
+
+** no-littering
+   [[https://github.com/emacscollective/no-littering][Github]]
+
+   Keeps emacs/package files corralled.
+   #+begin_src emacs-lisp
+     ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
+     ;; reliably, set `user-emacs-directory` before loading no-littering!
+     ;(setq user-emacs-directory "~/.cache/emacs")
+     
+     (use-package no-littering)
+     
+     ;; no-littering doesn't set this by default so we must place
+     ;; auto save files in the same path as it uses for sessions
+     (setq auto-save-file-name-transforms
+           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+   #+end_src
+
+
 ** Projectile
    [[https://github.com/bbatsov/projectile][Github]]
 
-   #+begin_src emacs-lisp
-     (use-package projectile)
-     (projectile-mode +1)
-     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package projectile
+  :hook
+  (after-init . projectile-mode)
+  :init
+  (setq projectile-project-search-path '("~/Code/")))
+
+  ;; (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+end_src
    
+
 ** Rainbow-Delimiters
     [[https://github.com/Fanael/rainbow-delimiters][GitHub]]
 
@@ -431,6 +583,16 @@
 
       (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
     #+end_src
+
+
+** sudo-edit
+
+Use sudo-edit on opened file to enable root privileges for editing
+
+#+begin_src emacs-lisp
+  (use-package sudo-edit)
+#+end_src
+
 
 ** Treemacs
     [[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjUvcb64p_7AhVslGoFHULHDR8QFnoECAwQAQ&url=https%3A%2F%2Fgithub.com%2FAlexander-Miller%2Ftreemacs&usg=AOvVaw0q411mH86k9gDCvRN0IGse][GitHub]]
@@ -446,6 +608,7 @@
 	:config
 	(progn
 	  (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
+	      treemacs-missing-project-action          'ask
 	;;	treemacs-deferred-git-apply-delay        0.5
 	;;	treemacs-directory-name-transformer      #'identity
 	;;	treemacs-display-in-side-window          t
@@ -465,7 +628,6 @@
 	;;	treemacs-indentation-string              " "
 	;;	treemacs-is-never-other-window           nil
 	;;	treemacs-max-git-entries                 5000
-	;;	treemacs-missing-project-action          'ask
 	;;	treemacs-move-forward-on-expand          nil
 	;;	treemacs-no-png-images                   nil
 	;;	treemacs-no-delete-other-windows         t
@@ -537,6 +699,7 @@
       (use-package treemacs-magit
 	:after (treemacs magit))
 
+      (use-package treemacs-all-the-icons)
       ;;(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
 	;;:after (treemacs persp-mode) ;;or perspective vs. persp-mode
 	;;:ensure t
@@ -548,6 +711,18 @@
 	;;:config (treemacs-set-scope-type 'Tabs))
     #+end_src
     
+
+** undo-tree
+
+#+begin_src emacs-lisp
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode)
+  )
+#+end_src
+
+
 ** Which-Key
     [[https://github.com/justbur/emacs-which-key][Github]]
 
@@ -560,15 +735,132 @@
        (setq which-key-idle-delay 0.05))
    #+end_src
 
+
+* Languages
+
+** lsp
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :init
+    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-keymap-prefix "C-c l")
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	   (rustic-mode . lsp)
+	   ;; if you want which-key integration
+	   (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp
+    :custom
+    (lsp-eldoc-render-all t)
+    (lsp-idle-delay 0.6))
+
+  ;; optionally
+  (use-package lsp-ui
+     :commands
+     lsp-ui-mode
+     :custom
+     (lsp-ui-peek-always-show t)
+     ;; (lsp-ui-sideline-show-hover t)
+     (lsp-ui-doc-enable nil))
+
+  ;; if you are ivy user
+  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+  ;; optionally if you want to use debugger
+  (use-package dap-mode)
+#+end_src
+
+
+** python
+
+Setup for programming in rust. Using a lot of the details provided here - [[https://github.com/daviwil/emacs-from-scratch/wiki/LSP-Python-(pyright)-config-in-emacs-from-scratch#wiki-pages-box][LSP Python (pyright) config in emacs from scratch]]
+
+#+begin_src emacs-lisp
+  (use-package lsp-pyright
+    :hook
+    (python-mode . (lambda ()
+		     (require 'lsp-pyright)
+		     (lsp-deferred))))
+
+  (use-package pyenv-mode)
+  
+  (use-package blacken
+  :init
+  (setq-default blacken-fast-unsafe t)
+  (setq-default blacken-line-length 80))
+
+  (use-package python-mode
+  :hook
+  (python-mode . pyvenv-mode)
+  (python-mode . flycheck-mode)
+  (python-mode . company-mode)
+  (python-mode . blacken-mode)
+  (python-mode . yas-minor-mode)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  (python-shell-interpreter "python3")
+  :config
+  )
+#+end_src
+
+
+** rust
+
+Setup for programming in rust. Using a lot of the details provided here - [[https://robert.kra.hn/posts/rust-emacs-setup/][Configuring Emacs for Rust Development]]
+
+#+begin_src emacs-lisp
+  (use-package rustic
+    :bind (:map rustic-mode-map
+		("M-j" . lsp-ui-imenu)
+		("M-?" . lsp-find-references)
+		("C-c C-c l" . flycheck-list-errors)
+		("C-c C-c a" . lsp-execute-code-action)
+		("C-c C-c r" . lsp-rename)
+		("C-c C-c q" . lsp-workspace-restart)
+		("C-c C-c Q" . lsp-workspace-shutdown)
+		("C-c C-c s" . lsp-rust-analyzer-status))
+    :config
+    ;; uncomment for less flashiness
+    ;; (setq lsp-eldoc-hook nil)
+    ;; (setq lsp-enable-symbol-highlighting nil)
+    ;; (setq lsp-signature-auto-activate nil)
+
+    ;; comment to disable rustfmt on save
+    (setq rustic-format-on-save t)
+    (setq rustic-analyzer-command '("/home/kenton/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"))
+    (add-hook 'rustic-mode-hook 'kmax/rustic-mode-hook))
+
+  (defun kmax/rustic-mode-hook ()
+    ;; so that run C-c C-c C-r works without having to confirm, but don't try to
+    ;; save rust buffers that are not file visiting. Once
+    ;; https://github.com/brotzeit/rustic/issues/253 has been resolved this should
+    ;; no longer be necessary.
+    (when buffer-file-name
+      (setq-local buffer-save-without-query t))
+    (add-hook 'before-save-hook 'lsp-format-buffer nil t))
+
+  ;; (lsp-rust-analyzer-server-display-inlay-hints t)
+  ;; (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  ;; (lsp-rust-analyzer-display-chaining-hints t)
+  ;; (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  ;; (lsp-rust-analyzer-display-closure-return-type-hints t)
+  ;; (lsp-rust-analyzer-display-parameter-hints nil)
+  ;; (lsp-rust-analyzer-display-reborrow-hints nil)lsp-rust-analyzer-cargo-watch-command "clippy")
+#+end_src
+
+
+** terraform
+
+#+begin_src emacs-lisp
+
+#+end_src
+
 * TODOs
 yasnippet
-flycheck
-lsp
-python
-rust
+python - TODO - dap mode
+rust - TODO dap-mode
+terraform
 javascript
 vue
-undo-tree
-sudo-edit
 multiple-cursors
-comments?
