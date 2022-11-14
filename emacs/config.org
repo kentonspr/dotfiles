@@ -101,7 +101,8 @@ Setup TCP daemon for remote connectivity
 #+begin_src emacs-lisp
   (setq server-host "0.0.0.0"
 	server-port 65100
-        server-use-tcp t)
+        server-auth-key "xHLypH4N55XMRAFQczfsSVJG"
+	server-use-tcp t)
 #+end_src
     
 * Evil
