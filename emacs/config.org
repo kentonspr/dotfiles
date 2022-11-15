@@ -14,7 +14,7 @@
           user-mail-address: "kappanaitis@gmail.com")
   #+end_src
 
-
+  
 * System
 ** Saved Customization File
 
@@ -105,7 +105,8 @@ Setup TCP daemon for remote connectivity. FIXME - I can't get this to work right
 #+end_src
     
 
-* Evil
+* Keybindings
+** Evil
 
 [[https://github.com/emacs-evil/evil][Github]]
 
@@ -136,7 +137,7 @@ Evil is used to get vim key mappings and modal operation for editing text
     (evil-set-initial-state 'dashboard-mode 'normal))
 #+end_src
    
-** evil-collection
+*** evil-collection
 
 [[https://github.com/emacs-evil/evil-collection][Github]]
 
@@ -150,7 +151,7 @@ Defines vi like bindings for multiple modes outside of the base evil mappings
     (evil-collection-init))
 #+end_src
   
-** evil-commentary
+*** evil-commentary
 
 [[https://github.com/linktohack/evil-commentary][Github]]
 
@@ -161,7 +162,7 @@ Allows for commenting with `gcc` for a single line or `gc<direction>`, e.f. `gc2
   (evil-commentary-mode)
 #+end_src
 
-** evil-eurround
+*** evil-eurround
 
 [[https://github.com/emacs-evil/evil-surround][Github]]
 
@@ -175,7 +176,7 @@ you will get a space in your surrounds like so - `[ foo ]`. If you use the close
 #+end_src
 
 
-* General
+** General
 
 [[https://github.com/noctuid/general.el][Github]]
 
@@ -197,12 +198,13 @@ or `C-SPC` leader where `SPC` is used for something else, e.g. Evil `insert` sta
 			    :global-prefix "C-SPC")
 
     (kmax/leader-keys
-      "SPC" '(counsel-M-x :which-key "M-x")))
+      "SPC" '(counsel-M-x :which-key "M-x")
+      "m"  '(:keymap prog-mode-map :which-key "mode map")))
 
   (general-define-key (kbd "<escape>") 'keyboard-escape-quit)
 #+end_src
      
-** Leader Bindings
+*** Leader Bindings
 
 Leader bindings for all packages are below. Helps keep a good view of what is in use for each chain of leaders.
 
@@ -232,9 +234,6 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
   (kmax/leader-keys
      "f"  '(:ignore t :which-key "files")
      "fe"  '(:ignore t :which-key "emacs files")
-     "fec" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org"))) :which-key "config.org")
-     "fei" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "init.el")
-     "fer" '((lambda () (interactive) (load-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "reload init.el")
      ;; "fec" '(:ignore t :which-key "emacs files")
      "ff"  '(counsel-find-file :which-key "find files")
      "fs"  '(save-buffer :which-key "save")
@@ -242,6 +241,19 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
      "fSa" '(save-some-buffers :which-key "save all")
      "fSg" '(magit-save-repository-buffers :which-key "save repo")
      "fSp" '(projectile-save-project-buffers :which-key "save project"))
+#+end_src
+
+**** emacs
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+    "e"  '(:ignore t :which-key "emacs")
+    "ec" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/config.org"))) :which-key "config.org")
+    "ee" '(eval-last-sexp :which-key "eval <-point")
+    "eE" '(eval-print-last-sexp :which-key "eval <-point print buffer")
+    "ei" '((lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "init.el")
+    "er" '((lambda () (interactive) (load-file (expand-file-name "~/.emacs.d/init.el"))) :which-key "reload init.el")
+  )
 #+end_src
 
 **** git
@@ -273,15 +285,6 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
   )
 #+end_src
 
-**** toggles
-
-#+begin_src emacs-lisp
-  (kmax/leader-keys
-     "t"  '(:ignore t :which-key "toggles")
-     "tt" '(counsel-load-theme :which-key "choose theme")
-     "ts" '(hydra-text-scale/body :which-key "scale text"))
-#+end_src
-
 **** quit
 
 #+begin_src emacs-lisp
@@ -291,6 +294,32 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
      "qr" '(restart-emacs :which-key "restart"))
 #+end_src
      
+**** toggles
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+     "t"  '(:ignore t :which-key "toggles")
+     "tt" '(counsel-load-theme :which-key "choose theme")
+     "ts" '(hydra-text-scale/body :which-key "scale text"))
+#+end_src
+
+**** search
+
+#+begin_src emacs-lisp
+  (kmax/leader-keys
+      "s" '(:ignore t :which-key "search")
+      "sf" '(swiper :which-key "buffer forward")
+      "sF" '(swiper-all :which-key "all buffers")
+      "sb" '(swiper-backward :which-key "buffer backward")
+      "sp" '(swiper-thing-at-point :which-key "at point in buffer")
+      "sP" '(swiper-thing-at-point :which-key "at point all buffers")
+      "sr" '(:ignore t :which-key "ripgrep")
+      "srm" '(projectile-ripgrep :which-key "ripgrep menu")
+      "srp" '(rg-project :which-key "ripgrep project")
+      "srP" '(counsel-projectile-rg :which-key "projectile ripgrep")
+  )
+#+end_src
+
 **** windows
 
 #+begin_src emacs-lisp
@@ -582,6 +611,18 @@ Select multiple lines and add cursor to the beginning of all lines in selection
     #+end_src
 
 
+** rg
+
+[[https://github.com/dajva/rg.el][Github]]
+[[https://rgel.readthedocs.io/en/2.2.1/index.html][Manual]]
+
+rg.el is an integration of ripgrep and emacs. Requires `ripgrep` to be installed on the workstation. Ubuntu distros - `sudo apt install ripgrep`
+
+#+begin_src emacs-lisp
+  (use-package rg)
+  (rg-enable-default-bindings)
+#+end_src
+
 ** sudo-edit
 
 Use sudo-edit on opened file to enable root privileges for editing
@@ -677,12 +718,13 @@ Use sudo-edit on opened file to enable root privileges for editing
     [[https://github.com/justbur/emacs-which-key][Github]]
 
    #+begin_src emacs-lisp
-     (use-package which-key
-       :defer 0
-       :diminish which-key-mode
-       :config
-       (which-key-mode)
-       (setq which-key-idle-delay 0.05))
+	  (use-package which-key
+	    :defer 0
+	    :diminish which-key-mode
+	    :config
+	    (which-key-mode)
+	    (setq which-key-idle-delay 0.05
+                  which-key-sort-order 'which-key-key-order-alpha))
    #+end_src
 
 
