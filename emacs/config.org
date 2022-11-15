@@ -96,14 +96,15 @@
 
 ** daemon
 
-Setup TCP daemon for remote connectivity
+Setup TCP daemon for remote connectivity. FIXME - I can't get this to work right. The client will connect remote, but hangs at "Waiting for Emacs"
 
 #+begin_src emacs-lisp
-  (setq server-host "0.0.0.0"
-	server-port 65100
-	server-use-tcp t)
+  ;; (setq server-host "0.0.0.0"
+  ;;       server-port 65100
+  ;;       server-use-tcp t)
 #+end_src
     
+
 * Evil
 
 [[https://github.com/emacs-evil/evil][Github]]
@@ -327,8 +328,9 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
     Enabling all-the-icons font. Font will still need to be installed after first start with =M-x all-the-icons-install-fonts=
     
 #+begin_src emacs-lisp
-  (when (display-graphic-p)
-     (require 'all-the-icons))
+  ; This is recommended on git, but seems to have no effect besides an error on first start
+  ;(when (display-graphic-p)
+  ;   (require 'all-the-icons))
 
   (use-package all-the-icons
      :if (display-graphic-p))
