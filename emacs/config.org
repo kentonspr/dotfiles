@@ -175,6 +175,17 @@ you will get a space in your surrounds like so - `[ foo ]`. If you use the close
     (global-evil-surround-mode 1))
 #+end_src
 
+*** evil-mc
+
+[[https://github.com/magnars/multiple-cursors.el][Github]]
+
+Select multiple lines and add cursor to the beginning of all lines in selection
+
+#+begin_src emacs-lisp
+  (use-package evil-mc)
+  (global-evil-mc-mode  1)
+#+end_src
+
 
 ** General
 
@@ -226,6 +237,12 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
     ; "bnt" '(:ignore t :which-key "new buffer top")
     ; "bnb" '(:ignore t :which-key "new buffer bottom")
     ; "b C-S-d" '(kill-matching-buffers :which-key "kill buffers regex") 
+#+end_src
+
+**** cursors
+
+#+begin_src emacs-lisp
+  ;TODO
 #+end_src
 
 **** files
@@ -312,9 +329,10 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
       "sF" '(swiper-all :which-key "all buffers")
       "sb" '(swiper-backward :which-key "buffer backward")
       "sp" '(swiper-thing-at-point :which-key "at point in buffer")
-      "sP" '(swiper-thing-at-point :which-key "at point all buffers")
+      "sP" '(swiper-all-thing-at-point :which-key "at point all buffers")
       "sr" '(:ignore t :which-key "ripgrep")
-      "srm" '(projectile-ripgrep :which-key "ripgrep menu")
+      "srm" '(rg-menu :which-key "ripgrep menu")
+      "srd" '(rg-dwim :which-key "rigrep magic")
       "srp" '(rg-project :which-key "ripgrep project")
       "srP" '(counsel-projectile-rg :which-key "projectile ripgrep")
   )
@@ -336,7 +354,10 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 * Packages
 
 ** Auto Package Updates
+
 [[https://github.com/rranelli/auto-package-update.el][Github]]
+
+Asks for periodic package updates on startup
   
 #+begin_src emacs-lisp
   (use-package auto-package-update
@@ -352,9 +373,10 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
    
 
 ** All The Icons
-    [[https://github.com/domtronn/all-the-icons.el][Github]]
+
+[[https://github.com/domtronn/all-the-icons.el][Github]]
     
-    Enabling all-the-icons font. Font will still need to be installed after first start with =M-x all-the-icons-install-fonts=
+Enabling all-the-icons font. Font will still need to be installed after first start with =M-x all-the-icons-install-fonts=
     
 #+begin_src emacs-lisp
   ; This is recommended on git, but seems to have no effect besides an error on first start
@@ -405,13 +427,23 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 
 ** eldoc
 
+[[https://www.emacswiki.org/emacs/ElDoc][Docs]]
+
 #+begin_src emacs-lisp
-(use-package eldoc
-  :diminish eldoc-mode)
+  (use-package eldoc
+    :diminish eldoc-mode)
+
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
+  (add-hook 'ielm-mode-hook 'eldoc-mode)
 #+end_src
 
 
 ** flycheck
+
+[[https://www.flycheck.org/en/latest/][Docs]]
+
+On-the-fly syntax checking
 
 #+begin_src emacs-lisp
   (use-package flycheck)
@@ -419,41 +451,46 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 
 
 ** helpful
-   [[https://github.com/Wilfred/helpful][Github]]
 
-   Extended help that includes source
+[[https://github.com/Wilfred/helpful][Github]]
 
-   #+begin_src emacs-lisp
-     (use-package helpful)
+Extended help that includes source and current state
 
-     ;; Note that the built-in `describe-function' includes both functions
-     ;; and macros. `helpful-function' is functions only, so we provide
-     ;; `helpful-callable' as a drop-in replacement.
-     (global-set-key (kbd "C-h f") #'helpful-callable)
+#+begin_src emacs-lisp
+  (use-package helpful)
 
-     (global-set-key (kbd "C-h v") #'helpful-variable)
-     (global-set-key (kbd "C-h k") #'helpful-key)
+  ;; Note that the built-in `describe-function' includes both functions
+  ;; and macros. `helpful-function' is functions only, so we provide
+  ;; `helpful-callable' as a drop-in replacement.
+  (global-set-key (kbd "C-h f") #'helpful-callable)
 
-     ;; Lookup the current symbol at point. C-c C-d is a common keybinding
-     ;; for this in lisp modes.
-     (global-set-key (kbd "C-c C-d") #'helpful-at-point)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
 
-     ;; Look up *F*unctions (excludes macros).
-     ;;
-     ;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
-     ;; already links to the manual, if a function is referenced there.
-     (global-set-key (kbd "C-h F") #'helpful-function)
+  ;; Lookup the current symbol at point. C-c C-d is a common keybinding
+  ;; for this in lisp modes.
+  (global-set-key (kbd "C-c C-d") #'helpful-at-point)
 
-     ;; Look up *C*ommands.
-     ;;
-     ;; By default, C-h C is bound to describe `describe-coding-system'. I
-     ;; don't find this very useful, but it's frequently useful to only
-     ;; look at interactive functions.
-     (global-set-key (kbd "C-h C") #'helpful-command)
-   #+end_src
+  ;; Look up *F*unctions (excludes macros).
+  ;;
+  ;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
+  ;; already links to the manual, if a function is referenced there.
+  (global-set-key (kbd "C-h F") #'helpful-function)
+
+  ;; Look up *C*ommands.
+  ;;
+  ;; By default, C-h C is bound to describe `describe-coding-system'. I
+  ;; don't find this very useful, but it's frequently useful to only
+  ;; look at interactive functions.
+  (global-set-key (kbd "C-h C") #'helpful-command)
+#+end_src
 
 
 ** hl-todo
+
+[[https://github.com/tarsius/hl-todo][Github]]
+
+Highlights TODO/FIXME/NOTE/etc... For all default faces use describe-variable on `hl-todo-keyword-faces`
 
 #+begin_src emacs-lisp
   (use-package hl-todo
@@ -467,27 +504,31 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 
 
 ** Hydra
-    [[https://github.com/abo-abo/hydra][Github]]
 
-    Hydra ties transient key bindings to related commands. Essentially creating sub menus for functionality
+[[https://github.com/abo-abo/hydra][Github]]
 
-**** Scale Text
+Hydra ties transient key bindings to related commands. Essentially creating sub menus for functionality
 
-    Add a popup menu for scaling text
+#+begin_src emacs-lisp
+  (use-package hydra
+    :defer t)
+#+end_src
 
-    #+begin_src emacs-lisp
-      (use-package hydra
-        :defer t)
-      
-      (defhydra hydra-text-scale (:timeout 4)
-        "scale text"
-        ("j" text-scale-decrease "down")
-        ("k" text-scale-increase "up")
-        ("q" nil "finished" :exit t))
-    #+end_src
+*** Scale Text
+
+Add a popup menu for scaling text
+
+#+begin_src emacs-lisp
+  (defhydra hydra-text-scale (:timeout 4)
+    "scale text"
+    ("j" text-scale-decrease "down")
+    ("k" text-scale-increase "up")
+    ("q" nil "finished" :exit t))
+#+end_src
     
 
 ** ivy / counsel / swiper
+
 [[https://github.com/abo-abo/swiper][Github]]
 
 Tools for narrowing lists through fuzzy search (Ivy), functions to use narrowing for things like files (Cousel), and a search mechanism (Swiper)
@@ -551,41 +592,37 @@ Tools for narrowing lists through fuzzy search (Ivy), functions to use narrowing
 
 Best git edit integration ever
 
-    #+begin_src emacs-lisp
-      (use-package magit)
-    #+end_src
-    
-
-** multiple-cursors
-[[https://github.com/magnars/multiple-cursors.el][Github]]
-
-Select multiple lines and add cursor to the beginning of all lines in selection
-
 #+begin_src emacs-lisp
-  (use-package multiple-cursors)
+  (use-package magit)
 #+end_src
+    
 
 
 ** no-littering
-   [[https://github.com/emacscollective/no-littering][Github]]
 
-   Keeps emacs/package files corralled.
-   #+begin_src emacs-lisp
-     ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
-     ;; reliably, set `user-emacs-directory` before loading no-littering!
-     ;(setq user-emacs-directory "~/.cache/emacs")
-     
-     (use-package no-littering)
-     
-     ;; no-littering doesn't set this by default so we must place
-     ;; auto save files in the same path as it uses for sessions
-     (setq auto-save-file-name-transforms
-           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-   #+end_src
+[[https://github.com/emacscollective/no-littering][Github]]
+
+Keeps emacs/package files corralled.
+
+#+begin_src emacs-lisp
+  ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
+  ;; reliably, set `user-emacs-directory` before loading no-littering!
+  ;(setq user-emacs-directory "~/.cache/emacs")
+
+  (use-package no-littering)
+
+  ;; no-littering doesn't set this by default so we must place
+  ;; auto save files in the same path as it uses for sessions
+  (setq auto-save-file-name-transforms
+	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+#+end_src
 
 
 ** Projectile
-   [[https://github.com/bbatsov/projectile][Github]]
+
+[[https://github.com/bbatsov/projectile][Github]]
+
+Groups known file structures into projects. Primarily git repos.
 
 #+begin_src emacs-lisp
   (use-package projectile
@@ -600,15 +637,16 @@ Select multiple lines and add cursor to the beginning of all lines in selection
    
 
 ** Rainbow-Delimiters
-    [[https://github.com/Fanael/rainbow-delimiters][GitHub]]
 
-    Colorful open/close delimiters for easy matching
+[[https://github.com/Fanael/rainbow-delimiters][GitHub]]
 
-    #+begin_src emacs-lisp
-      (use-package rainbow-delimiters)
+Colorful open/close delimiters for easy matching
 
-      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-    #+end_src
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters)
+
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+end_src
 
 
 ** rg
@@ -623,6 +661,7 @@ rg.el is an integration of ripgrep and emacs. Requires `ripgrep` to be installed
   (rg-enable-default-bindings)
 #+end_src
 
+
 ** sudo-edit
 
 Use sudo-edit on opened file to enable root privileges for editing
@@ -633,9 +672,10 @@ Use sudo-edit on opened file to enable root privileges for editing
 
 
 ** Treemacs
-    [[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjUvcb64p_7AhVslGoFHULHDR8QFnoECAwQAQ&url=https%3A%2F%2Fgithub.com%2FAlexander-Miller%2Ftreemacs&usg=AOvVaw0q411mH86k9gDCvRN0IGse][GitHub]]
 
-    Tree file viewer with extras for integrations. Most settings commented
+[[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjUvcb64p_7AhVslGoFHULHDR8QFnoECAwQAQ&url=https%3A%2F%2Fgithub.com%2FAlexander-Miller%2Ftreemacs&usg=AOvVaw0q411mH86k9gDCvRN0IGse][GitHub]]
+
+Tree file view used in conjunction with projectile. Group projects into workspaces that can be viewed in the tree.
 
 #+begin_src emacs-lisp
   (use-package treemacs
@@ -715,22 +755,29 @@ Use sudo-edit on opened file to enable root privileges for editing
 
 
 ** Which-Key
-    [[https://github.com/justbur/emacs-which-key][Github]]
 
-   #+begin_src emacs-lisp
-	  (use-package which-key
-	    :defer 0
-	    :diminish which-key-mode
-	    :config
-	    (which-key-mode)
-	    (setq which-key-idle-delay 0.05
-                  which-key-sort-order 'which-key-key-order-alpha))
-   #+end_src
+[[https://github.com/justbur/emacs-which-key][Github]]
+
+Automated menu system that pops into view for next possible keys in sequence.
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :defer 0
+    :diminish which-key-mode
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay 0.05
+	  which-key-sort-order 'which-key-key-order-alpha))
+#+end_src
 
 
 * Languages
 
 ** lsp
+
+[[https://github.com/emacs-lsp/lsp-mode][Github]]
+
+Language server package for IDE experience in Emacs. Integrates with `company`, `flycheck`, and `projectile`.
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -751,8 +798,9 @@ Use sudo-edit on opened file to enable root privileges for editing
      :commands
      lsp-ui-mode
      :custom
-     (lsp-ui-peek-always-show t)
-     ;; (lsp-ui-sideline-show-hover t)
+     ;; Turn these on with t for more visual stuff on the screen all the time
+     (lsp-ui-peek-always-show nil)
+     (lsp-ui-sideline-show-hover nil)
      (lsp-ui-doc-enable nil))
 
   ;; if you are ivy user
@@ -801,6 +849,8 @@ Setup for programming in rust. Using a lot of the details provided here - [[http
 
 Setup for programming in rust. Using a lot of the details provided here - [[https://robert.kra.hn/posts/rust-emacs-setup/][Configuring Emacs for Rust Development]]
 
+Requires `rust-analyzer` to be installed using `rustup`
+
 #+begin_src emacs-lisp
   (use-package rustic
     :bind (:map rustic-mode-map
@@ -818,9 +868,9 @@ Setup for programming in rust. Using a lot of the details provided here - [[http
     ;; (setq lsp-enable-symbol-highlighting nil)
     ;; (setq lsp-signature-auto-activate nil)
 
+    ;; (setq rustic-analyzer-command '("/home/kenton/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"))
     ;; comment to disable rustfmt on save
     (setq rustic-format-on-save t)
-    (setq rustic-analyzer-command '("/home/kenton/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"))
     (add-hook 'rustic-mode-hook 'kmax/rustic-mode-hook))
 
   (defun kmax/rustic-mode-hook ()
@@ -845,7 +895,7 @@ Setup for programming in rust. Using a lot of the details provided here - [[http
 ** terraform
 
 #+begin_src emacs-lisp
-
+  (use-package terraform-mode)
 #+end_src
 
 * TODOs
