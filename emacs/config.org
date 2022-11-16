@@ -649,6 +649,16 @@ Colorful open/close delimiters for easy matching
 #+end_src
 
 
+** restclient
+
+[[https://github.com/pashky/restclient.el][Github]]
+
+HTTP rest client
+
+#+begin_src emacs-lisp
+  (use-package restclient)
+#+end_src
+
 ** rg
 
 [[https://github.com/dajva/rg.el][Github]]
@@ -772,6 +782,30 @@ Automated menu system that pops into view for next possible keys in sequence.
 
 
 * Languages
+
+** babel
+
+*** http
+
+[[https://github.com/zweifisch/ob-http][Github]]
+
+#+begin_src emacs-lisp
+  (use-package ob-http)
+
+#+end_src
+
+
+*** load languages
+
+Load all babel languages here
+
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (http . t)))
+#+end_src
+
 
 ** lsp
 
@@ -905,4 +939,3 @@ rust - TODO dap-mode
 terraform
 javascript
 vue
-multiple-cursors
