@@ -41,6 +41,15 @@
     (add-hook 'emacs-startup-hook #'efs/display-startup-time) 
   #+end_src
 
+** Env Vars
+
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell)
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+#+end_src
+
+
 ** Built-Ins
 
    Enable electric-pair-mode so that character pair for things like "" are automatically added
@@ -398,6 +407,15 @@ Enabling all-the-icons font. Font will still need to be installed after first st
      (add-hook 'after-init-hook 'global-company-mode)
    #+end_src
 
+*** Tabnine
+    [[https://github.com/TommyX12/company-tabnine][Github]]
+
+    AI Autocompletion backend for Company. All-languages
+
+    #+begin_src emacs-lisp
+      (use-package company-tabnine :ensure t)
+      (add-to-list 'company-backends #'company-tabnine)
+    #+end_src
 
 ** Doom Theme
     [[https://github.com/hlissner/emacs-doom-themes][Github]]
@@ -930,6 +948,53 @@ Requires `rust-analyzer` to be installed using `rustup`
 
 #+begin_src emacs-lisp
   (use-package terraform-mode)
+#+end_src
+
+
+** html
+
+#+begin_src emacs-lisp
+  (use-package web-mode
+   :commands (web-mode)
+   :mode (("\\.html?\\'" . web-mode)
+	  ("\\.tpl\\.php\\'" . web-mode)
+	  ("\\.[agj]sp\\'" . web-mode)
+	  ("\\.as[cp]x\\'" . web-mode)
+	  ("\\.erb\\'" . web-mode)
+	  ("\\.mustache\\'" . web-mode)
+	  ("\\.djhtml\\'" . web-mode)
+	  ("\\.phtml\\'" . web-mode))
+    :config
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-comment-style 2)
+  )
+#+end_src
+
+
+** javascript
+
+js-mode is native in emacs. js2-mode is apparently better, but vue uses js-mode for various reasos.
+
+#+begin_src emacs-lisp
+;; nothing here yet
+#+end_src
+
+
+** json
+
+#+begin_src emacs-lisp
+  (use-package json-mode)
+#+end_src
+
+** vue
+
+#+begin_src emacs-lisp
+  (use-package vue-mode
+   :mode "\\.vue\\'"
+   :config
+   (add-hook 'vue-mode-hook #'lsp))
 #+end_src
 
 * TODOs

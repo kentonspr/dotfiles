@@ -22,6 +22,7 @@
   (setq package-pinned-packages
         '((org-plus-contrib . "org"))))
 (package-initialize)
+(package-refresh-contents)
 
 ;;; Bootstrap use-package
 ;; Install use-package if it's not already installed.
