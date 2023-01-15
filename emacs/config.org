@@ -29,15 +29,15 @@
    
   #+begin_src emacs-lisp
     ;; The default is 800 kilobytes.  Measured in bytes.
-    (setq gc-cons-threshold (* 50 1000 1000))
+    ;; (setq gc-cons-threshold (* 50 1000 1000))
     
     (defun efs/display-startup-time ()
       (message "Emacs loaded in %s with %d garbage collections."
-               (format "%.2f seconds"
-                       (float-time
-                         (time-subtract after-init-time before-init-time)))
-               gcs-done))
-    
+	       (format "%.2f seconds"
+		       (float-time
+			 (time-subtract after-init-time before-init-time)))
+	       gcs-done))
+
     (add-hook 'emacs-startup-hook #'efs/display-startup-time) 
   #+end_src
 
@@ -337,8 +337,8 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
       "sf" '(swiper :which-key "buffer forward")
       "sF" '(swiper-all :which-key "all buffers")
       "sb" '(swiper-backward :which-key "buffer backward")
-      "sp" '(swiper-thing-at-point :which-key "at point in buffer")
-      "sP" '(swiper-all-thing-at-point :which-key "at point all buffers")
+      "ss" '(swiper-thing-at-point :which-key "at point in buffer")
+      "sS" '(swiper-all-thing-at-point :which-key "at point all buffers")
       "sr" '(:ignore t :which-key "ripgrep")
       "srm" '(rg-menu :which-key "ripgrep menu")
       "srd" '(rg-dwim :which-key "rigrep magic")
@@ -948,6 +948,16 @@ Requires `rust-analyzer` to be installed using `rustup`
 
 #+begin_src emacs-lisp
   (use-package terraform-mode)
+  (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode)
+#+end_src
+
+** yaml
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode)
+  (add-hook 'yaml-mode-hook
+     (lambda ()
+        (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 #+end_src
 
 
