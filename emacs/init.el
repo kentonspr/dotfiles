@@ -27,16 +27,16 @@
 ;;; Bootstrap use-package
 ;; Install use-package if it's not already installed.
 ;; use-package is used to configure the rest of the packages.
-(unless (or (package-installed-p 'use-package)
-            (package-installed-p 'diminish))
+(unless (or (package-installed-p 'use-package))
+            ;;(package-installed-p 'diminish))
   (package-refresh-contents)
-  (package-install 'use-package)
-  (package-install 'diminish))
+  ;;(package-install 'diminish)
+  (package-install 'use-package))
 
 ;; From use-package README
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)  ;; if you use :diminish
+;;(require 'diminish)  ;; if you use :diminish
 (require 'bind-key)
 
 ;; Make sure all packages default to ensure t

@@ -180,6 +180,7 @@ you will get a space in your surrounds like so - `[ foo ]`. If you use the close
 
 #+begin_src emacs-lisp
   (use-package evil-surround
+    :ensure t
     :config
     (global-evil-surround-mode 1))
 #+end_src
