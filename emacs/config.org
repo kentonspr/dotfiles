@@ -414,8 +414,8 @@ Enabling all-the-icons font. Font will still need to be installed after first st
     AI Autocompletion backend for Company. All-languages
 
     #+begin_src emacs-lisp
-      (use-package company-tabnine :ensure t)
-      (add-to-list 'company-backends #'company-tabnine)
+      ;; (use-package company-tabnine :ensure t)
+      ;; (add-to-list 'company-backends #'company-tabnine)
     #+end_src
 
 ** Doom Theme
