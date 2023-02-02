@@ -20,7 +20,7 @@
 
 (when (boundp 'package-pinned-packages)
   (setq package-pinned-packages
-        '((org-plus-contrib . "org"))))
+        '((org-contrib . "org"))))
 (package-initialize)
 (package-refresh-contents)
 
@@ -44,5 +44,15 @@
 (setq use-package-always-ensure t)
 
 (setq vc-follow-symlinks t)
+
+;; Load latest org-mode
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :ensure org-plus-contrib
+  :config
+  (progn
+    ;; config stuff
+    ))
+
 ;;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
