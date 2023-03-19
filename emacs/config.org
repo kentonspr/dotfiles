@@ -359,11 +359,11 @@ Leader bindings for all packages are below. Helps keep a good view of what is in
 #+begin_src emacs-lisp
   (kmax/leader-keys
      "w"  '(:ignore t :which-key "windows")
-     "wd" '(delete-window :which-key "windows")
-     "wh" '(evil-window-left :which-key "windows")
-     "wj" '(evil-window-down :which-key "windows")
-     "wk" '(evil-window-up :which-key "windows")
-     "wl" '(evil-window-right :which-key "windows"))
+     "wd" '(delete-window :which-key "delete")
+     "wh" '(evil-window-left :which-key "move left")
+     "wj" '(evil-window-down :which-key "move down")
+     "wk" '(evil-window-up :which-key "move up")
+     "wl" '(evil-window-right :which-key "move right"))
 #+end_src
 
 
@@ -404,6 +404,18 @@ Enabling all-the-icons font. Font will still need to be installed after first st
 #+end_src
 
 
+** ChatGPT
+   [[https://github.com/joshcho/ChatGPT.el][Github.com]]
+
+   #+begin_src emacs-lisp
+     (use-package chatgpt
+       :quelpa ((chatgpt :fetcher git :url "https://github.com/joshcho/ChatGPT.el.git") :upgrade t)
+       :init
+       (require 'python)
+       (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
+       :bind ("C-c q" . chatgpt-query))
+   #+end_src
+
 ** Company Mode
    [[https://company-mode.github.io/][Github.io]]
 
@@ -423,6 +435,7 @@ Enabling all-the-icons font. Font will still need to be installed after first st
       ;; (use-package company-tabnine :ensure t)
       ;; (add-to-list 'company-backends #'company-tabnine)
     #+end_src
+
 
 ** Doom Theme
     [[https://github.com/hlissner/emacs-doom-themes][Github]]
@@ -853,6 +866,9 @@ Language server package for IDE experience in Emacs. Integrates with `company`, 
     (lsp-eldoc-render-all t)
     (lsp-idle-delay 0.6))
 
+  (with-eval-after-load 'lsp-mode
+    (mapc #'lsp-flycheck-add-mode '(typescript-mode js-mode css-mode vue-html-mode)))
+
   ;; optionally
   (use-package lsp-ui
      :commands
@@ -1009,10 +1025,10 @@ js-mode is native in emacs. js2-mode is apparently better, but vue uses js-mode 
 ** vue
 
 #+begin_src emacs-lisp
-  (use-package vue-mode
-   :mode "\\.vue\\'"
-   :config
-   (add-hook 'vue-mode-hook #'lsp))
+    (use-package vue-mode
+     :mode "\\.vue\\'"
+     :config
+     (add-hook 'vue-mode-hook #'lsp))
 #+end_src
 
 * TODOs

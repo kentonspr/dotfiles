@@ -33,11 +33,21 @@
   ;;(package-install 'diminish)
   (package-install 'use-package))
 
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+
 ;; From use-package README
 (eval-when-compile
   (require 'use-package))
+
 ;;(require 'diminish)  ;; if you use :diminish
 (require 'bind-key)
+
+(require 'quelpa-use-package)
 
 ;; Make sure all packages default to ensure t
 ;; Ensure t installs packages if they aren't already
