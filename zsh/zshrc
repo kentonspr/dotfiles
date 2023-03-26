@@ -11,6 +11,12 @@ fi
 # Emacs tramp fix. No crazy prompts
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
+# History
+HISTFILE=~/.zsh/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY
+
 # Source plugins
 source $ZDOTDIR/plugins/LS_COLORS/lscolors.sh
 source $ZDOTDIR/plugins/git/git.plugin.zsh
