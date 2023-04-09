@@ -488,6 +488,23 @@ On-the-fly syntax checking
 #+end_src
 
 
+** hl-todo
+
+[[https://github.com/tarsius/hl-todo][Github]]
+
+Highlights TODO/FIXME/NOTE/etc... For all default faces use describe-variable on `hl-todo-keyword-faces`
+
+#+begin_src emacs-lisp
+  (use-package hl-todo
+     :ensure t
+     :custom-face
+     (hl-todo ((t (:inherit hl-todo :italic t))))
+     :hook ((prog-mode . hl-todo-mode)
+	    (org-mode . hl-todo-mode)
+	    (yaml-mode . hl-todo-mode)))
+#+end_src
+
+
 ** helpful
 
 [[https://github.com/Wilfred/helpful][Github]]
@@ -521,23 +538,6 @@ Extended help that includes source and current state
   ;; don't find this very useful, but it's frequently useful to only
   ;; look at interactive functions.
   (global-set-key (kbd "C-h C") #'helpful-command)
-#+end_src
-
-
-** hl-todo
-
-[[https://github.com/tarsius/hl-todo][Github]]
-
-Highlights TODO/FIXME/NOTE/etc... For all default faces use describe-variable on `hl-todo-keyword-faces`
-
-#+begin_src emacs-lisp
-  (use-package hl-todo
-     :ensure t
-     :custom-face
-     (hl-todo ((t (:inherit hl-todo :italic t))))
-     :hook ((prog-mode . hl-todo-mode)
-	    (org-mode . hl-todo-mode)
-	    (yaml-mode . hl-todo-mode)))
 #+end_src
 
 

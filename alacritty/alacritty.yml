@@ -41,3 +41,8 @@ colors:
 
 window:
   decorations: none
+  opacity: 0.95
+
+font:
+  normal:
+    family: 'JetBrains Mono'
