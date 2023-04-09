@@ -123,7 +123,15 @@ return require('packer').startup(function(use)
 
   -- Git Integration
   use 'tpope/vim-fugitive'
-  
+
   -- Better netrw settings and fixes
-  use 'tpope/vim-vinegar'
+  -- use 'tpope/vim-vinegar'
+
+  -- File tree
+  use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+          'nvim-tree/nvim-web-devicons', -- optional
+      }
+  }
 end)

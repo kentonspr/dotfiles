@@ -1,2 +1,2 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pt", vim.cmd.Ex, { desc = "Find files" })
+vim.keymap.set("n", "<leader>pt", vim.cmd.NvimTreeToggle, { desc = "view project tree" })

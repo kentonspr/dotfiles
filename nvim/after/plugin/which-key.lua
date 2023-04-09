@@ -4,8 +4,7 @@ require("which-key").setup (
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
+        -- the presets plugin, adds help for a bunch of default keybindings in Neovim No actual key bindings are created
         spelling = {
             enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
@@ -99,14 +98,23 @@ local wk = require("which-key")
 -- and hide <leader>1
 
 wk.register({
-  f = {
-    name = "file", -- optional group name
-    -- f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
-    -- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap=false, buffer = 123 }, -- additional options for creating the keymap
-    -- n = { "New File" }, -- just a label. don't create any mapping
-    -- e = "Edit File", -- same as above
-    -- ["1"] = "which_key_ignore",  -- special label to hide it in the popup
-    -- b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
-  },
+    f = {
+        name = "file", -- optional group name
+        -- f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+        -- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap=false, buffer = 123 }, -- additional options for creating the keymap
+        -- n = { "New File" }, -- just a label. don't create any mapping
+        -- e = "Edit File", -- same as above
+        -- ["1"] = "which_key_ignore",  -- special label to hide it in the popup
+        -- b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+    },
+    g = {
+        name = "git"
+    },
+    p = {
+        name = "project"
+    },
+    u = {
+        name = "undo-tree"
+    }
 }, { prefix = "<leader>" })
 

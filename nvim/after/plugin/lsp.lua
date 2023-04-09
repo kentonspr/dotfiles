@@ -1,7 +1,7 @@
 local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
-    'ansible-lint',
+    'ansiblels',
     'bashls',
     'cssls',
     'dockerls',
