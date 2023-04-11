@@ -134,4 +134,7 @@ return require('packer').startup(function(use)
           'nvim-tree/nvim-web-devicons', -- optional
       }
   }
+
+  -- Different colored open and close delimiters based on depth
+  use 'HiPhish/nvim-ts-rainbow2'
 end)
