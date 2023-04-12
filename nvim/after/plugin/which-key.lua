@@ -117,13 +117,15 @@ wk.register({
         name = "projects"
     },
     t = {
-        name = "tabs"
+        name = "tabs",
+        m = "move tabs"
     },
     T = {
         name = "toggles"
     },
     w = {
-        name = "windows"
+        name = "windows",
+        m = "move windows"
     },
     u = {
         name = "undo-tree"

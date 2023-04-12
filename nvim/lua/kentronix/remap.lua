@@ -1,5 +1,21 @@
 vim.g.mapleader = " "
 
+-- BUFFERS
+--
+vim.keymap.set("n", "<leader><Tab>", ':b#<CR>', { desc = "changes to last buffer" })
+vim.keymap.set("n", "<leader>bd", ':bd<CR>', { desc = "close current buffer safe" })
+vim.keymap.set("n", "<leader>bD", ':bw<CR>', { desc = "close current buffer unsafe" })
+
+-- EDITING
+-- 
+vim.keymap.set("n", "<C-j>", '<ESC>:m .+1<CR>==gi', { desc = "move line down in normal mode" })
+vim.keymap.set("n", "<C-k>", '<ESC>:m .-2<CR>==gi', { desc = "move line up in normal mode" })
+vim.keymap.set("i", "<C-j>", '<ESC>:m .+1<CR>==gi', { desc = "move line down in insert mode" })
+vim.keymap.set("i", "<C-k>", '<ESC>:m .-2<CR>==gi', { desc = "move line up in insert mode" })
+-- This doesn't work so well in visual mode
+-- vim.keymap.set("v", "<C-j>", "<ESC>:m '>+1<CR>==gi", { desc = "move line down in visual mode" })
+-- vim.keymap.set("v", "<C-k>", "<ESC>:m '<-2<CR>==gi", { desc = "move line up in visual mode" })
+
 -- HELP
 --
 vim.keymap.set("n", "<leader>hh", ':help<CR>', { desc = "open help in new window" })
@@ -12,8 +28,8 @@ vim.keymap.set("n", "<leader>pt", vim.cmd.NvimTreeToggle, { desc = "view project
 
 -- TABS
 --
-vim.keymap.set("n", "<leader>tc", ':tabclose<CR>', { desc = "closes current tab" })
-vim.keymap.set("n", "<leader>tC", ':tabonly<CR>', { desc = "closes all other tabs" })
+vim.keymap.set("n", "<leader>tq", ':tabclose<CR>', { desc = "close current tab" })
+vim.keymap.set("n", "<leader>tQ", ':tabonly<CR>', { desc = "close all other tabs" })
 
 -- Navigate tabs
 vim.keymap.set("n", "<leader>th", ':-tabnext split<CR>', { desc = "move to tab left" })
@@ -36,6 +52,8 @@ vim.keymap.set("n", "<leader>tmL", ':$tabnext split<CR>', { desc = "move to last
 
 -- WINDOWS
 --
+vim.keymap.set("n", "<leader>wq", ':close<CR>', { desc = "close current window" })
+
 -- navigatge windows
 vim.keymap.set("n", "<leader>wh", ':wincmd h<CR>', { desc = "move to window left" })
 vim.keymap.set("n", "<leader>wj", ':wincmd j<CR>', { desc = "move to window below" })
@@ -51,9 +69,9 @@ vim.keymap.set("n", "<leader>wf", ':wincmd ><CR>', { desc = "make window wider" 
 vim.keymap.set("n", "<leader>wa", ':wincmd <<CR>', { desc = "make window narrower" })
 
 -- move windows around
-vim.keymap.set("n", "<leader>wmH", ':wincmd H<CR>', { desc = "move window to far left" })
-vim.keymap.set("n", "<leader>wmJ", ':wincmd J<CR>', { desc = "move window to bottom" })
-vim.keymap.set("n", "<leader>wmK", ':wincmd K<CR>', { desc = "move window to top" })
-vim.keymap.set("n", "<leader>wmL", ':wincmd L<CR>', { desc = "move window to far right" })
+vim.keymap.set("n", "<leader>wmh", ':wincmd H<CR>', { desc = "move window to far left" })
+vim.keymap.set("n", "<leader>wmj", ':wincmd J<CR>', { desc = "move window to bottom" })
+vim.keymap.set("n", "<leader>wmk", ':wincmd K<CR>', { desc = "move window to top" })
+vim.keymap.set("n", "<leader>wml", ':wincmd L<CR>', { desc = "move window to far right" })
 
 
