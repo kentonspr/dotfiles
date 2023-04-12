@@ -79,6 +79,8 @@ return require('packer').startup(function(use)
   -- Comment Tag Highlight
   --  TODO:
   --  FIXME: etc...
+  --  FIXME
+  --
   use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
