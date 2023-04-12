@@ -8,3 +8,5 @@ require("transparent").setup({
   extra_groups = {}, -- table: additional groups that should be cleared
   exclude_groups = {}, -- table: groups you don't want to clear
 })
+
+vim.keymap.set("n", "<leader>Tt", vim.cmd.TransparentToggle, { desc = "toggle tansparent bg" })

@@ -98,8 +98,11 @@ local wk = require("which-key")
 -- and hide <leader>1
 
 wk.register({
+    b = {
+        name = "buffers"
+    },
     f = {
-        name = "file", -- optional group name
+        name = "files", -- optional group name
         -- f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
         -- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap=false, buffer = 123 }, -- additional options for creating the keymap
         -- n = { "New File" }, -- just a label. don't create any mapping
@@ -111,7 +114,16 @@ wk.register({
         name = "git"
     },
     p = {
-        name = "project"
+        name = "projects"
+    },
+    t = {
+        name = "tabs"
+    },
+    T = {
+        name = "toggles"
+    },
+    w = {
+        name = "windows"
     },
     u = {
         name = "undo-tree"
