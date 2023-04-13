@@ -28,8 +28,8 @@ vim.keymap.set("n", "<leader>pt", vim.cmd.NvimTreeToggle, { desc = "view project
 
 -- TABS
 --
-vim.keymap.set("n", "<leader>tq", ':tabclose<CR>', { desc = "close current tab" })
-vim.keymap.set("n", "<leader>tQ", ':tabonly<CR>', { desc = "close all other tabs" })
+vim.keymap.set("n", "<leader>td", ':tabclose<CR>', { desc = "close current tab" })
+vim.keymap.set("n", "<leader>tD", ':tabonly<CR>', { desc = "close all other tabs" })
 
 -- Navigate tabs
 vim.keymap.set("n", "<leader>th", ':-tabnext split<CR>', { desc = "move to tab left" })
@@ -52,7 +52,7 @@ vim.keymap.set("n", "<leader>tmL", ':$tabnext split<CR>', { desc = "move to last
 
 -- WINDOWS
 --
-vim.keymap.set("n", "<leader>wq", ':close<CR>', { desc = "close current window" })
+vim.keymap.set("n", "<leader>wd", ':close<CR>', { desc = "close current window" })
 
 -- navigatge windows
 vim.keymap.set("n", "<leader>wh", ':wincmd h<CR>', { desc = "move to window left" })

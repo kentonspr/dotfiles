@@ -1,5 +1,6 @@
 local lib = require("nvim-tree.lib")
 local view = require("nvim-tree.view")
+local api = require("nvim-tree.api")
 
 
 local function collapse_all()
@@ -47,6 +48,7 @@ local function vsplit_preview()
     view.focus()
 end
 
+
 local config = {
     view = {
         mappings = {
@@ -55,7 +57,8 @@ local config = {
                 { key = "l", action = "edit", action_cb = edit_or_open },
                 { key = "L", action = "vsplit_preview", action_cb = vsplit_preview },
                 { key = "h", action = "close_node" },
-                { key = "H", action = "collapse_all", action_cb = collapse_all }
+                { key = "H", action = "collapse_all", action_cb = collapse_all },
+                { key = "t", action = "open new tab", action_cb = api.node.open.tab },
             }
         },
     },
