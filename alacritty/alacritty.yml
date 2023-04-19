@@ -1,4 +1,4 @@
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
@@ -7,6 +7,7 @@
   # available, otherwise `xterm-256color` is used. This can bet set
   # xterm-256color manually to fix SSH problems
   # TERM: xterm-256color
+  COLORTERM: truecolor
 
 # Colors (One Dark)
 colors:
