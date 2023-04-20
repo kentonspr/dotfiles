@@ -1,7 +1,7 @@
 -- Need this for colors on doom emacs theme in alacritty
 vim.opt.termguicolors = true
 
-vim.api.nvim_set_hl(0, 'LineNr', { fg = "#adadad" } )
+vim.api.nvim_set_hl(0, 'LineNr', { fg = "#adadad" })
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -29,4 +29,3 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
-

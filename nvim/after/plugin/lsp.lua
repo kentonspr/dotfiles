@@ -1,3 +1,16 @@
+-- Format on save
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local lsp_format_on_save = function(bufnr)
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format()
+        end,
+    })
+end
+
 local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
@@ -5,14 +18,15 @@ lsp.ensure_installed({
     'bashls',
     'cssls',
     'dockerls',
-	'eslint',
+    'eslint',
     'html',
     'jsonls',
-	'lua_ls',
+    'lua_ls',
     'pyright',
-	'rust_analyzer',
+    'rust_analyzer',
     'terraformls',
-	'tsserver',
+    'tflint',
+    'tsserver',
     'volar',
     'yamlls'
 })
@@ -20,7 +34,8 @@ lsp.ensure_installed({
 local cmp = require('cmp')
 
 lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
+    lsp.default_keymaps({ buffer = bufnr })
+    lsp_format_on_save(bufnr)
 end)
 
 -- (Optional) Configure lua language server for neovim

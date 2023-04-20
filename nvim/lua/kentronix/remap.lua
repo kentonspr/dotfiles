@@ -7,7 +7,7 @@ vim.keymap.set("n", "<leader>bd", ':bd<CR>', { desc = "close current buffer safe
 vim.keymap.set("n", "<leader>bD", ':bw<CR>', { desc = "close current buffer unsafe" })
 
 -- EDITING
--- 
+--
 vim.keymap.set("n", "<C-j>", '<ESC>:m .+1<CR>==gi', { desc = "move line down in normal mode" })
 vim.keymap.set("n", "<C-k>", '<ESC>:m .-2<CR>==gi', { desc = "move line up in normal mode" })
 vim.keymap.set("i", "<C-j>", '<ESC>:m .+1<CR>==gi', { desc = "move line down in insert mode" })
@@ -73,5 +73,3 @@ vim.keymap.set("n", "<leader>wmh", ':wincmd H<CR>', { desc = "move window to far
 vim.keymap.set("n", "<leader>wmj", ':wincmd J<CR>', { desc = "move window to bottom" })
 vim.keymap.set("n", "<leader>wmk", ':wincmd K<CR>', { desc = "move window to top" })
 vim.keymap.set("n", "<leader>wml", ':wincmd L<CR>', { desc = "move window to far right" })
-
-
