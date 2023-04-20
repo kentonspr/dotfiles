@@ -30,10 +30,10 @@ return require('packer').startup(function(use)
             vim.g.doom_one_plugin_barbar = false
             vim.g.doom_one_plugin_telescope = true
             vim.g.doom_one_plugin_neogit = false
-            vim.g.doom_one_plugin_nvim_tree = false
+            vim.g.doom_one_plugin_nvim_tree = true
             vim.g.doom_one_plugin_dashboard = false
             vim.g.doom_one_plugin_startify = false
-            vim.g.doom_one_plugin_whichkey = false
+            vim.g.doom_one_plugin_whichkey = true
             vim.g.doom_one_plugin_indent_blankline = false
             vim.g.doom_one_plugin_vim_illuminate = false
             vim.g.doom_one_plugin_lspsaga = false
@@ -55,7 +55,6 @@ return require('packer').startup(function(use)
             -- require("which-key").setup {
             -- your configuration comes here
             -- or leave it empty to use the default settings
-            -- refer to the configuration section below
             -- }
         end
     }
