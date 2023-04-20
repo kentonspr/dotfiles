@@ -32,10 +32,10 @@ vim.keymap.set("n", "<leader>td", ':tabclose<CR>', { desc = "close current tab" 
 vim.keymap.set("n", "<leader>tD", ':tabonly<CR>', { desc = "close all other tabs" })
 
 -- Navigate tabs
-vim.keymap.set("n", "<leader>th", ':-tabnext split<CR>', { desc = "move to tab left" })
-vim.keymap.set("n", "<leader>tH", ':1tabnext split<CR>', { desc = "move to first tab" })
-vim.keymap.set("n", "<leader>tl", ':tabnext split<CR>', { desc = "move to tab right" })
-vim.keymap.set("n", "<leader>tL", ':$tabnext split<CR>', { desc = "move to last tab" })
+vim.keymap.set("n", "<leader>th", ':-tabnext<CR>', { desc = "move to tab left" })
+vim.keymap.set("n", "<leader>tH", ':1tabnext<CR>', { desc = "move to first tab" })
+vim.keymap.set("n", "<leader>tl", ':tabnext<CR>', { desc = "move to tab right" })
+vim.keymap.set("n", "<leader>tL", ':$tabnext<CR>', { desc = "move to last tab" })
 
 -- New tabs
 vim.keymap.set("n", "<leader>ts", ':tab split<CR>', { desc = "open buffer in new tab" })
