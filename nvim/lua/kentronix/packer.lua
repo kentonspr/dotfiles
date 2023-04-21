@@ -43,6 +43,21 @@ return require('packer').startup(function(use)
         end,
     })
 
+    -- Fancy mode line
+    use {
+        'famiu/feline.nvim',
+        requires = {
+            {
+                'lewis6991/gitsigns.nvim',
+                requires = { 'nvim-lua/plenary.nvim' },
+                config = function()
+                    require('gitsigns').setup()
+                end,
+            },
+            -- 'kyazdani42/nvim-web-devicons',
+        },
+    }
+
     -- Enable/disable transparent background
     use 'xiyaowong/transparent.nvim'
 
