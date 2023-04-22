@@ -34,7 +34,7 @@ return require('packer').startup(function(use)
             vim.g.doom_one_plugin_dashboard = false
             vim.g.doom_one_plugin_startify = false
             vim.g.doom_one_plugin_whichkey = true
-            vim.g.doom_one_plugin_indent_blankline = false
+            vim.g.doom_one_plugin_indent_blankline = true
             vim.g.doom_one_plugin_vim_illuminate = false
             vim.g.doom_one_plugin_lspsaga = false
         end,
@@ -43,20 +43,21 @@ return require('packer').startup(function(use)
         end,
     })
 
-    -- Fancy mode line
-    use {
-        'famiu/feline.nvim',
-        requires = {
-            {
-                'lewis6991/gitsigns.nvim',
-                requires = { 'nvim-lua/plenary.nvim' },
-                config = function()
-                    require('gitsigns').setup()
-                end,
-            },
-            -- 'kyazdani42/nvim-web-devicons',
-        },
-    }
+    -- Indentation guide
+    use "lukas-reineke/indent-blankline.nvim"
+
+    use 'kyazdani42/nvim-web-devicons'
+
+    use({
+        'NTBBloodbath/galaxyline.nvim',
+        branch = 'main',
+        -- your statusline
+        config = function()
+            require('galaxyline.themes.eviline')
+        end,
+        -- some optional icons
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    })
 
     -- Enable/disable transparent background
     use 'xiyaowong/transparent.nvim'
@@ -145,11 +146,19 @@ return require('packer').startup(function(use)
     -- File tree
     use {
         'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        }
+        -- requires = {
+        -- 'nvim-tree/nvim-web-devicons', -- optional
+        -- }
     }
 
     -- Different colored open and close delimiters based on depth
     use 'HiPhish/nvim-ts-rainbow2'
+
+    -- Markdown browser preview
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && npm install",
+        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        ft = { "markdown" },
+    })
 end)

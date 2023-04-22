@@ -15,19 +15,28 @@ local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
     'ansiblels',
+    'awk_ls',
     'bashls',
+    'clangd',
     'cssls',
     'dockerls',
+    'docker_compose_language_service',
     'eslint',
+    'helm_ls',
     'html',
     'jsonls',
+    'lemminx',  -- XML
     'lua_ls',
+    'marksman', -- Markdown
     'pyright',
     'rust_analyzer',
+    'spectral', -- OpenAPI
+    'sqlls',
+    'taplo',    -- TOML
     'terraformls',
     'tflint',
     'tsserver',
-    'volar',
+    'volar', -- vue
     'yamlls'
 })
 
