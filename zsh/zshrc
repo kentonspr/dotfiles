@@ -30,7 +30,7 @@ source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZDOTDIR/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Theme
 # Main prompt
