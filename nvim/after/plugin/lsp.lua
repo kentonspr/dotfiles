@@ -26,7 +26,6 @@ lsp.ensure_installed({
     'clangd',
     'cssls',
     'dockerls',
-    'docker_compose_language_service',
     'eslint',
     'helm_ls',
     'html',
