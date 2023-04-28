@@ -1,1 +1,2 @@
 export ZDOTDIR=${HOME}/.zsh
+export XDG_CACHE_HOME=${HOME}/.cache

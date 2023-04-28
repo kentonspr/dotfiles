@@ -12,7 +12,7 @@ fi
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 # History
-HISTFILE=~/.zsh/.zsh_history
+HISTFILE=${ZDOTDIR}/.zsh/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt SHARE_HISTORY
