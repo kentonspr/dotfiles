@@ -42,16 +42,6 @@ local function vsplit_preview()
     view.focus()
 end
 
-
-local config = {
-    actions = {
-        open_file = {
-            quit_on_open = false
-        }
-    }
-}
-
-
 local function on_attach(bufnr)
     local api = require('nvim-tree.api')
 
@@ -139,7 +129,11 @@ require("nvim-tree").setup({
     on_attach = on_attach,
     actions = {
         open_file = {
-            quit_on_open = false
+            quit_on_open = false,
+            resize_window = true
         }
+    },
+    view = {
+        width = 45
     }
 })

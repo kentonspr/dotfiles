@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
 
     use({
-        'NTBBloodbath/galaxyline.nvim',
+        'kentonspr/galaxyline.nvim',
         branch = 'main',
         -- your statusline
         config = function()
