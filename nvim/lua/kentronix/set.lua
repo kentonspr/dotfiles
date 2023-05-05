@@ -30,3 +30,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
+vim.g.python3_host_prog = '/home/kenton/.pyenv/versions/nvim/bin/python'
