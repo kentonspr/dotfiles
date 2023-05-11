@@ -23,7 +23,6 @@ lsp.ensure_installed({
     'ansiblels',
     'awk_ls',
     'bashls',
-    'black', -- Python formatter
     'clangd',
     'cssls',
     'dockerls',
@@ -77,8 +76,20 @@ cmp.setup({
 
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
-    lsp_format_on_save(bufnr)
+    -- lsp_format_on_save(bufnr)
 end)
+
+lsp.format_on_save({
+    servers = {
+        ['lua_ls'] = { 'lua' },
+        ['rust_analyzer'] = { 'rust' },
+        ['black'] = { 'python' },
+        ['tflint'] = { 'terraform' },
+        -- if you have a working setup with null-ls
+        -- you can specify filetypes it can format.
+        -- ['null-ls'] = {'javascript', 'typescript'},
+    }
+})
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
