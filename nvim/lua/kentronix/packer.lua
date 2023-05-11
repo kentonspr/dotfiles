@@ -165,7 +165,15 @@ return require('packer').startup(function(use)
     use {
         "danymat/neogen",
         config = function()
-            require('neogen').setup {}
+            require('neogen').setup {
+                languages = {
+                    python = {
+                        template = {
+                            annotation_convention = "reST"
+                        }
+                    }
+                }
+            }
         end,
         requires = "nvim-treesitter/nvim-treesitter",
         -- Uncomment next line if you want to follow only stable versions
