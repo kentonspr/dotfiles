@@ -78,16 +78,16 @@ lsp.on_attach(function(client, bufnr)
     lsp_format_on_save(bufnr)
 end)
 
-lsp.format_on_save({
-    servers = {
-        ['lua_ls'] = { 'lua' },
-        ['rust_analyzer'] = { 'rust' },
-        ['tflint'] = { 'terraform' },
-        -- if you have a working setup with null-ls
-        -- you can specify filetypes it can format.
-        ['null-ls'] = { 'python' },
-    }
-})
+-- lsp.format_on_save({
+--     servers = {
+--         ['lua_ls'] = { 'lua' },
+--         ['rust_analyzer'] = { 'rust' },
+--         ['tflint'] = { 'terraform' },
+--         -- if you have a working setup with null-ls
+--         -- you can specify filetypes it can format.
+--         ['null-ls'] = { 'python' },
+--     }
+-- })
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())

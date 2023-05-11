@@ -8,8 +8,7 @@ return require('packer').startup(function(use)
     -- Doom Emacs theme
     use({
         'NTBBloodbath/doom-one.nvim',
-        setup = function()
-            -- Add color to cursor
+        setup = function() -- Add color to cursor
             vim.g.doom_one_cursor_coloring = false
             -- Set :terminal colors vim.g.doom_one_terminal_colors = false
             -- Enable italic comments
@@ -112,17 +111,6 @@ return require('packer').startup(function(use)
                 'williamboman/mason.nvim',
                 run = function()
                     pcall(vim.cmd, 'MasonUpdate')
-                end,
-            },
-            {
-                "jay-babu/mason-null-ls.nvim",
-                event = { "BufReadPre", "BufNewFile" },
-                dependencies = {
-                    -- "williamboman/mason.nvim",
-                    "jose-elias-alvarez/null-ls.nvim",
-                },
-                config = function()
-                    require("your.null-ls.config") -- require your null-ls config here (example below)
                 end,
             },
             { 'williamboman/mason-lspconfig.nvim' }, -- Optional
