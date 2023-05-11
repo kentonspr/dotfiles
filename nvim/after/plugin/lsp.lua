@@ -23,6 +23,7 @@ lsp.ensure_installed({
     'ansiblels',
     'awk_ls',
     'bashls',
+    'black', -- Python formatter
     'clangd',
     'cssls',
     'dockerls',
