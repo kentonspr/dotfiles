@@ -166,13 +166,14 @@ return require('packer').startup(function(use)
         "danymat/neogen",
         config = function()
             require('neogen').setup {
+                enabled = true,
                 languages = {
                     python = {
                         template = {
                             annotation_convention = "reST"
                         }
                     }
-                }
+                },
             }
         end,
         requires = "nvim-treesitter/nvim-treesitter",
