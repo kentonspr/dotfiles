@@ -16,7 +16,6 @@ local lsp_format_on_save = function(bufnr)
         end,
     })
 end
-
 local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
@@ -76,7 +75,7 @@ cmp.setup({
 
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
-    -- lsp_format_on_save(bufnr)
+    lsp_format_on_save(bufnr)
 end)
 
 lsp.format_on_save({
