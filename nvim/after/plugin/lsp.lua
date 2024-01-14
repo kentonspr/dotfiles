@@ -70,7 +70,12 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
     },
+})
+
+mapping = cmp.mapping.preset.insert({
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
 })
 
 lsp.on_attach(function(client, bufnr)

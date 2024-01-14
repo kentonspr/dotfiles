@@ -30,4 +30,12 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
-vim.g.python3_host_prog = '/home/kenton/.pyenv/versions/nvim/bin/python'
+-- vim.g.python3_host_prog = '/home/kenton/.pyenv/versions/nvim/bin/python'
+
+vim.diagnostic.config({
+    virtual_text = false
+})
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]

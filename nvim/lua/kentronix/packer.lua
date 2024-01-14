@@ -87,6 +87,9 @@ return require('packer').startup(function(use)
         end
     })
 
+    -- Auto Close Surrounds
+    use 'm4xshen/autoclose.nvim'
+
     -- Commment lines with motions
     use 'tpope/vim-commentary'
 
