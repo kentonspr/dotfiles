@@ -182,4 +182,22 @@ return require('packer').startup(function(use)
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
     }
+
+    -- use({
+    --     "github/copilot.vim"
+    -- })
+    use({
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({})
+        end,
+    })
+
+    -- This needs to be installed in the appropriate venv nvim is running in
+    -- pip install python-dotenv requests pynvim==0.5.0 prompt-toolkit
+    use({
+        "gptlang/CopilotChat.nvim"
+    })
 end)
