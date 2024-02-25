@@ -23,6 +23,7 @@ return {
     { "nvim-lua/plenary.nvim" },
   },
   keys = {
+    { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChatBuffer - Prompt" },
     { "<leader>ccc", ":CopilotChat ", desc = "CopilotChat - Prompt" },
     { "<leader>cce", ":CopilotChatExplain ", desc = "CopilotChat - Explain code" },
     { "<leader>cci", ":CopilotChatFixDiagnostic<cr>", desc = "CopilotChatFixDiagnostic" },
