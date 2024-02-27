@@ -21,8 +21,8 @@ vim.keymap.del("n", "<leader><Tab>l")
 vim.keymap.del("n", "<leader>bb")
 vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>`")
-
 vim.keymap.del("n", "<leader>|")
+
 -- FILES
 --
 vim.keymap.set("n", "<leader>ft", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
