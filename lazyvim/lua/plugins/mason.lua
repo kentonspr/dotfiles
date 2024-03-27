@@ -20,6 +20,7 @@ return {
       "marksman", -- Markdown
       "spectral-language-server", -- OpenAPI
       "sqlls",
+      "tailwindcss-language-server",
       "taplo", -- TOML
       "terraform-ls",
       "tflint",

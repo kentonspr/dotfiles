@@ -13,6 +13,9 @@ vim.opt.undofile = true
 
 vim.g.python3_host_prog = "/home/kenton/.pyenv/versions/nvim/bin/python"
 
+-- y and p yank and paste to and from system clipboard
+vim.opt.clipboard = "unnamedplus"
+
 -- Sets colors to line numbers Above, Current and Below  in this order
 -- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#51B3EC' })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#adadad" })
