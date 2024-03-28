@@ -26,7 +26,7 @@ return {
     { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChatBuffer - Prompt" },
     { "<leader>ccc", ":CopilotChat ", desc = "CopilotChat - Prompt" },
     { "<leader>cce", ":CopilotChatExplain ", desc = "CopilotChat - Explain code" },
-    { "<leader>cci", ":CopilotChatFixDiagnostic<cr>", desc = "CopilotChatFixDiagnostic" },
+    { "<leader>ccf", ":CopilotChatFixDiagnostic<cr>", desc = "CopilotChatFixDiagnostic" },
     { "<leader>cci", ":CopilotChatInPlace<cr>", desc = "CopilotChatInPlace" },
     { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
     { "<leader>ccr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review code" },
