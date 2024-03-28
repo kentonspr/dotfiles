@@ -1,5 +1,5 @@
 **/custom.el
 **/config.el
 nvim/plugin
-**/lazy-lock.json
-**/lazyvim.json
+lazyvim/lazy-lock.json
+lazyvim/lazyvim.json
