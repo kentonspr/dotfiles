@@ -1,6 +1,9 @@
 # Sets function directory for 
 fpath+=${ZDOTDIR}/functions
 
+zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*' widget-style menu-select
+
 # Source all zshrc configs
 if [[ -e $ZDOTDIR/zshrc.d ]]; then
     for i in $(find $ZDOTDIR/zshrc.d -type l,f -name '*.zsh'|sort); do
@@ -23,10 +26,7 @@ source $ZDOTDIR/plugins/git/git.plugin.zsh
 # There are many zsh-git-prompt repos. This is the one used here - https://github.com/zsh-git-prompt/zsh-git-prompt
 source $ZDOTDIR/plugins/zsh-git-prompt/zshrc.sh
 
-zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':autocomplete:*' widget-style menu-select
 source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-
 source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
