@@ -4,13 +4,6 @@ fpath+=${ZDOTDIR}/functions
 zstyle ':autocomplete:*' insert-unambiguous yes
 zstyle ':autocomplete:*' widget-style menu-select
 
-# Source all zshrc configs
-if [[ -e $ZDOTDIR/zshrc.d ]]; then
-    for i in $(find $ZDOTDIR/zshrc.d -type l,f -name '*.zsh'|sort); do
-        source "$i"
-    done
-fi
-
 # History
 export HISTFILE=$ZDOTDIR/.zsh_history
 export HISTSIZE=10000
@@ -44,3 +37,10 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%})"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+# Source all zshrc configs
+if [[ -e $ZDOTDIR/zshrc.d ]]; then
+    for i in $(find $ZDOTDIR/zshrc.d -type l,f -name '*.zsh'|sort); do
+        source "$i"
+    done
+fi
