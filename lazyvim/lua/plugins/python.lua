@@ -1,7 +1,6 @@
 return {
   "nvim-lspconfig",
   opts = {
-    ---@type lspconfig.options
     servers = {
       pyright = {
         capabilities = (function()
