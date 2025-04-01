@@ -3,7 +3,7 @@ return {
   opts = {
     preset = "classic",
     spec = {
-      { "<leader>cc", group = "+copilot" },
+      { "<leader>cc", group = "+claude" },
       { "<leader>t", group = "+tabs" },
       { "<leader>tn", group = "+new" },
       { "<leader>tm", group = "+move" },

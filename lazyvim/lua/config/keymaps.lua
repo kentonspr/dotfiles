@@ -23,6 +23,11 @@ vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>`")
 vim.keymap.del("n", "<leader>|")
 
+-- Code Lens
+--
+-- vim.keymap.del("n", "<leader>cc")
+-- vim.keymap.del("n", "<leader>cC")
+
 -- FILES
 --
 vim.keymap.set("n", "<leader>ft", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
@@ -80,3 +85,9 @@ vim.keymap.set("n", "<leader>wml", ":wincmd L<CR>", { desc = "Move window to far
 --Telescope
 --
 vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Telescope Buffers" })
+
+-- CodeCompanion
+vim.keymap.set("n", "<leader>cca", ":CodeCompanionActions<CR>", { desc = "CodeCompanionActions" })
+vim.keymap.set("n", "<leader>ccc", ":CodeCompanionChat<CR>", { desc = "CodeCompanionChat" })
+vim.keymap.set("n", "<leader>ccC", ":CodeCompanionCmd<CR>", { desc = "CodeCompanionCmd" })
+vim.keymap.set("n", "<leader>ccp", ":CodeCompanion<CR>", { desc = "CodeCompanion - Prompt" })
