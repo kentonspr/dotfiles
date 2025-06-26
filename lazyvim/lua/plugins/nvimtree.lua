@@ -95,6 +95,9 @@ return {
             resize_window = true,
           },
         },
+        filters = {
+          dotfiles = false,
+        },
         view = {
           width = 45,
         },
