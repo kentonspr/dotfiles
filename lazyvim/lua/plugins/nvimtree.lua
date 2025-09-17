@@ -96,6 +96,7 @@ return {
           },
         },
         filters = {
+          git_ignored = false,
           dotfiles = false,
         },
         view = {
